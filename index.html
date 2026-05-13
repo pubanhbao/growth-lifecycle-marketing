@@ -1,0 +1,1939 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OnFlow CRM Strategy 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=DM+Mono:wght@400;500&display=swap');
+:root{
+  --bg:#f5f4f0;--sur:#fff;--sur2:#f0efe9;--bdr:#e2e0d8;--tx:#1a1a18;--mu:#6b6b60;
+  --r:#d63b2f;--rl:#fef0ee;--rc:#fcd0cc;
+  --y:#c77b00;--yl:#fef8ee;--yc:#fde68a;
+  --g:#16864a;--gl:#edfaf3;--gc:#a7f3d0;
+  --b:#2563eb;--bl:#eff4ff;--bc:#bfdbfe;
+  --p:#7c3aed;--pl:#f3f0ff;--pc:#ddd6fe;
+  --fn:'DM Sans',sans-serif;--mn:'DM Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font-family:var(--fn);font-size:14px;line-height:1.65}
+
+/* TOP BAR */
+.topbar{background:var(--tx);color:#fff;padding:13px 40px;display:flex;align-items:center;justify-content:space-between}
+.topbar-t{font-size:13px;font-weight:500;letter-spacing:.03em}
+.topbar-m{font-size:11px;font-family:var(--mn);color:rgba(255,255,255,.4)}
+
+/* TAB BAR */
+.tabbar{background:var(--sur);border-bottom:1px solid var(--bdr);padding:0 40px;display:flex;position:sticky;top:0;z-index:100;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.tabbtn{font-family:var(--fn);font-size:13px;font-weight:500;padding:15px 18px;border:none;background:transparent;cursor:pointer;color:var(--mu);border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .18s,border-color .18s}
+.tabbtn.on{color:var(--tx);border-bottom-color:var(--tx)}
+.tabbtn:hover:not(.on){color:var(--tx)}
+.tbadge{display:inline-block;font-size:10px;font-family:var(--mn);font-weight:500;padding:1px 6px;border-radius:3px;margin-left:6px;background:var(--rl);color:var(--r)}
+.tbadge.g{background:var(--gl);color:var(--g)}
+
+/* PANELS */
+.panel{display:none;padding:40px;max-width:1120px;margin:0 auto}
+.panel.on{display:block}
+
+/* SECTION */
+.sec{margin-bottom:44px}
+.sh{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.sl{font-family:var(--mn);font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--mu);white-space:nowrap}
+.sline{flex:1;height:1px;background:var(--bdr)}
+
+/* STAT GRIDS */
+.sg4{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--bdr);border:1px solid var(--bdr);border-radius:8px;overflow:hidden;margin-bottom:20px}
+.sg3{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--bdr);border:1px solid var(--bdr);border-radius:8px;overflow:hidden;margin-bottom:20px}
+.sg2{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--bdr);border:1px solid var(--bdr);border-radius:8px;overflow:hidden;margin-bottom:20px}
+.sc{background:var(--sur);padding:20px 18px}
+.sc.crit{background:#fff8f7}.sc.warn{background:#fffbf5}.sc.ok{background:#f4fbf7}
+.slbl{font-family:var(--mn);font-size:10px;color:var(--mu);letter-spacing:.08em;text-transform:uppercase;margin-bottom:9px}
+.sval{font-family:var(--mn);font-size:30px;font-weight:500;line-height:1;margin-bottom:4px}
+.sval.r{color:var(--r)}.sval.y{color:var(--y)}.sval.g{color:var(--g)}.sval.b{color:var(--b)}.sval.p{color:var(--p)}
+.ssub{font-size:11px;color:var(--mu)}
+
+/* PILL */
+.pill{display:inline-block;font-family:var(--mn);font-size:10px;padding:2px 7px;border-radius:3px;font-weight:500}
+.pill.r{background:var(--rl);color:var(--r)}.pill.y{background:var(--yl);color:var(--y)}
+.pill.g{background:var(--gl);color:var(--g)}.pill.b{background:var(--bl);color:var(--b)}
+.pill.p{background:var(--pl);color:var(--p)}.pill.gr{background:var(--sur2);color:var(--mu)}
+
+/* ALERT */
+.al{border-radius:6px;padding:15px 18px;margin-bottom:18px;border-left:3px solid}
+.al.r{background:var(--rl);border-color:var(--r)}.al.y{background:var(--yl);border-color:var(--y)}
+.al.b{background:var(--bl);border-color:var(--b)}.al.g{background:var(--gl);border-color:var(--g)}
+.al.p{background:var(--pl);border-color:var(--p)}
+.al-t{font-weight:700;font-size:12px;margin-bottom:5px}
+.al.r .al-t{color:var(--r)}.al.y .al-t{color:var(--y)}.al.b .al-t{color:var(--b)}
+.al.g .al-t{color:var(--g)}.al.p .al-t{color:var(--p)}
+.al p{font-size:13px;color:var(--tx)}
+
+/* CARD */
+.card{background:var(--sur);border:1px solid var(--bdr);border-radius:8px;padding:22px;margin-bottom:14px}
+.card.lr{border-left:3px solid var(--r)}.card.ly{border-left:3px solid var(--y)}
+.card.lb{border-left:3px solid var(--b)}.card.lg{border-left:3px solid var(--g)}
+.card.lp{border-left:3px solid var(--p)}
+.ct{font-weight:700;font-size:14px;margin-bottom:5px}
+.cs{font-size:12px;color:var(--mu);margin-bottom:12px}
+
+/* GRID LAYOUTS */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.g4t{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+
+/* FUNNEL */
+.frow{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.flbl{font-size:12px;width:160px;flex-shrink:0}
+.ftrk{flex:1;background:var(--sur2);height:28px;border-radius:3px;overflow:hidden}
+.ffill{height:100%;border-radius:3px;display:flex;align-items:center;padding-left:12px;font-family:var(--mn);font-size:11px;font-weight:500;color:#fff}
+.fpct{font-family:var(--mn);font-size:13px;font-weight:500;width:52px;text-align:right}
+.fnote{font-size:11px;color:var(--mu);width:170px}
+
+/* CHANNEL / TEAM BARS */
+.brow{display:flex;align-items:center;gap:10px;margin-bottom:7px}
+.bnm{width:85px;font-family:var(--mn);font-size:11px;color:var(--tx)}
+.btrk{flex:1;background:var(--sur2);height:22px;border-radius:2px;overflow:hidden}
+.bfll{height:100%;display:flex;align-items:center;padding-left:8px;font-family:var(--mn);font-size:11px;font-weight:500;color:#fff}
+.bval{font-family:var(--mn);font-size:11px;color:var(--mu);width:38px;text-align:right}
+
+/* CHANNEL 5-GRID */
+.ch5{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;background:var(--bdr);border:1px solid var(--bdr);border-radius:8px;overflow:hidden;margin-bottom:18px}
+.chi{background:var(--sur);padding:18px}
+.chi-n{font-family:var(--mn);font-size:10px;color:var(--mu);margin-bottom:7px}
+.chi-v{font-family:var(--mn);font-size:26px;font-weight:500;margin-bottom:3px}
+.chi-s{font-size:11px;color:var(--mu)}
+
+/* CMP CTR COMPARE */
+.ctr2{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--bdr);border-radius:6px;overflow:hidden;margin-bottom:16px}
+.ctri{background:var(--sur);padding:22px;text-align:center}
+.ctri.crit{background:#fff8f7}
+.ctri-l{font-family:var(--mn);font-size:10px;color:var(--mu);text-transform:uppercase;letter-spacing:.08em;margin-bottom:9px}
+.ctri-v{font-family:var(--mn);font-size:44px;font-weight:500;line-height:1;margin-bottom:5px}
+.ctri-s{font-size:11px;color:var(--mu)}
+
+/* CONG BARS */
+.crow{display:flex;align-items:center;gap:12px;margin-bottom:7px}
+.ctm{font-family:var(--mn);font-size:12px;width:52px;color:var(--y);font-weight:500}
+.ctrk{flex:1;background:var(--sur2);height:22px;border-radius:2px;overflow:hidden}
+.cfll{height:100%;display:flex;align-items:center;padding-left:8px;font-family:var(--mn);font-size:11px;font-weight:500;color:#fff}
+.ccnt{font-family:var(--mn);font-size:12px;color:var(--mu);width:46px;text-align:right}
+
+/* GHOST BARS */
+.grow{display:flex;align-items:center;gap:12px;margin-bottom:7px}
+.glbl{font-size:12px;width:110px}
+.gtrk{flex:1;background:var(--sur2);height:24px;border-radius:2px;overflow:hidden;display:flex}
+.gact{height:100%;display:flex;align-items:center;padding-left:8px;font-family:var(--mn);font-size:11px;font-weight:600;color:var(--tx);background:rgba(22,134,74,.2)}
+.gdead{height:100%;display:flex;align-items:center;padding-left:8px;font-family:var(--mn);font-size:11px;font-weight:600;color:var(--r);background:rgba(214,59,47,.1)}
+
+/* POWER LAW BOX */
+.plbox{background:var(--tx);color:#fff;border-radius:8px;padding:24px;margin-bottom:24px}
+.plt{font-family:var(--mn);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:10px}
+.pli{font-size:15px;line-height:1.6;font-weight:300}
+.pli strong{font-weight:700;color:#fbbf24}
+.plns{display:flex;gap:28px;margin-top:14px;border-top:1px solid rgba(255,255,255,.1);padding-top:14px}
+.pln .n{font-family:var(--mn);font-size:24px;font-weight:500;color:#fbbf24}
+.pln .l{font-family:var(--mn);font-size:10px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.07em;margin-top:2px}
+
+/* RC CARDS */
+.rc{background:var(--sur);border:1px solid var(--bdr);border-radius:8px;padding:22px;margin-bottom:14px;border-left:3px solid}
+.rc.r{border-left-color:var(--r)}.rc.y{border-left-color:var(--y)}.rc.b{border-left-color:var(--b)}.rc.p{border-left-color:var(--p)}
+.rc-n{font-family:var(--mn);font-size:10px;color:var(--mu);letter-spacing:.13em;margin-bottom:8px}
+.rc-t{font-size:15px;font-weight:700;margin-bottom:8px}
+.rc-d{font-size:13px;color:var(--mu);line-height:1.6;margin-bottom:14px}
+.rc-ev{background:var(--sur2);border-radius:5px;border:1px solid var(--bdr);padding:13px 15px}
+.rc-ev-t{font-family:var(--mn);font-size:10px;color:var(--b);letter-spacing:.09em;text-transform:uppercase;margin-bottom:8px}
+.rc-ev ul{list-style:none}
+.rc-ev ul li{font-size:12px;color:var(--mu);padding:2px 0;display:flex;gap:7px}
+.rc-ev ul li::before{content:'→';color:var(--bdr);flex-shrink:0}
+.rc-ev ul li strong{color:var(--tx)}
+.rc3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:14px}
+.rce{background:var(--sur2);border:1px solid var(--bdr);border-radius:4px;padding:13px}
+.rce .el{font-family:var(--mn);font-size:10px;color:var(--mu);margin-bottom:6px;text-transform:uppercase;letter-spacing:.08em}
+.rce .ev{font-family:var(--mn);font-size:20px;font-weight:500;margin-bottom:3px}
+.rce .ed{font-size:11px;color:var(--mu)}
+
+/* MATRIX TABLE */
+.mtx{background:var(--sur);border:1px solid var(--bdr);border-radius:8px;overflow:hidden;margin-bottom:24px}
+.mh{background:var(--sur2);border-bottom:1px solid var(--bdr)}
+.mr{border-bottom:1px solid rgba(226,224,216,.5)}
+.mr:last-child{border-bottom:none}
+.mr:hover td,.mr:hover div{background:var(--bg)}
+.mh th,.mr td{padding:10px 15px;font-size:12px;vertical-align:top}
+.mh th{font-family:var(--mn);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--mu);font-weight:500}
+.mrow-p{font-weight:600;font-size:13px}
+
+/* SCORE TABLE */
+.stable{width:100%;border-collapse:collapse}
+.stable th{background:var(--sur2);padding:9px 12px;text-align:left;font-family:var(--mn);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--mu);border-bottom:1px solid var(--bdr)}
+.stable td{padding:9px 12px;border-bottom:1px solid rgba(226,224,216,.4);vertical-align:top;font-size:12px}
+.stable tr:last-child td{border-bottom:none}
+.stable tr:hover td{background:var(--bg)}
+
+/* TIER GRID */
+.tg4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}
+.tc{border-radius:6px;padding:14px;border:1px solid}
+.tc-a{background:var(--gl);border-color:var(--gc)}.tc-b{background:var(--bl);border-color:var(--bc)}
+.tc-c{background:var(--yl);border-color:var(--yc)}.tc-d{background:var(--rl);border-color:var(--rc)}
+.tc-lbl{font-family:var(--mn);font-size:10px;font-weight:500;letter-spacing:.09em;margin-bottom:6px}
+.tc-a .tc-lbl{color:var(--g)}.tc-b .tc-lbl{color:var(--b)}.tc-c .tc-lbl{color:var(--y)}.tc-d .tc-lbl{color:var(--r)}
+.tc-score{font-family:var(--mn);font-size:20px;font-weight:500;margin-bottom:3px}
+.tc-a .tc-score{color:var(--g)}.tc-b .tc-score{color:var(--b)}.tc-c .tc-score{color:var(--y)}.tc-d .tc-score{color:var(--r)}
+.tc-act{font-size:11px;color:var(--mu)}
+
+/* USER GROUPS */
+.ugcard{background:var(--sur);border:1px solid var(--bdr);border-radius:8px;overflow:hidden;margin-bottom:0}
+.ugh{padding:13px 17px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--bdr)}
+.ugh-t{font-weight:700;font-size:13px}.ugh-s{font-size:10px;font-family:var(--mn);margin-top:2px}
+.ugb{padding:15px 17px}
+.ugattr{font-size:12px;color:var(--mu);margin-bottom:11px;line-height:1.55}
+.ugst{font-family:var(--mn);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--mu);margin-bottom:7px}
+.mc{background:var(--sur2);border-radius:4px;padding:9px 11px;margin-bottom:6px}
+.mc-l{font-family:var(--mn);font-size:10px;color:var(--mu);margin-bottom:3px}
+.mc-t{font-size:12px;font-style:italic}
+.mc-n{font-size:11px;color:var(--mu);margin-top:2px}
+
+/* ONBOARDING BRANCHES */
+.branch{border:1px solid var(--bdr);border-radius:8px;overflow:hidden;margin-bottom:16px}
+.brh{padding:11px 17px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--bdr)}
+.brt{font-weight:700;font-size:13px}
+.brb{padding:15px 17px}
+.arow{display:flex;align-items:flex-start;gap:11px;margin-bottom:13px;padding-bottom:13px;border-bottom:1px solid var(--sur2)}
+.arow:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.abadge{font-family:var(--mn);font-size:11px;font-weight:500;padding:4px 8px;border-radius:4px;white-space:nowrap;min-width:88px;text-align:center;flex-shrink:0;margin-top:1px}
+.asig{font-size:12px;color:var(--mu);margin-bottom:6px}
+.amsgs{display:flex;flex-direction:column;gap:5px}
+.amsg{font-size:12px;background:var(--sur2);border-radius:4px;padding:7px 10px;font-style:italic}
+.aact{font-family:var(--mn);font-size:10px;color:var(--g);margin-top:5px;font-weight:500}
+
+/* OUTCOME GRID */
+.og2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px;margin-bottom:14px}
+.oc{border-radius:6px;padding:16px;border:1px solid}
+.oc.y{background:var(--gl);border-color:var(--gc)}.oc.n{background:var(--yl);border-color:var(--yc)}
+.oc-l{font-family:var(--mn);font-size:10px;font-weight:500;letter-spacing:.09em;margin-bottom:6px}
+.oc.y .oc-l{color:var(--g)}.oc.n .oc-l{color:var(--y)}
+.oc-t{font-weight:700;font-size:12px;margin-bottom:4px}
+.oc-d{font-size:11px;color:var(--mu)}
+
+/* ENGAGEMENT CARDS */
+.engc{background:var(--sur);border:1px solid var(--bdr);border-radius:8px;overflow:hidden;margin-bottom:14px}
+.engh{padding:13px 17px;border-bottom:1px solid var(--bdr);display:flex;justify-content:space-between;align-items:center}
+.engh-t{font-weight:700;font-size:13px}
+.engb{padding:15px 17px}
+.engi{font-size:13px;color:var(--mu);margin-bottom:12px;line-height:1.6}
+.me3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.mex{background:var(--sur2);border-radius:4px;padding:10px;font-size:12px;font-style:italic;border-left:2px solid var(--bdr)}
+
+/* PRINCIPLE CARDS */
+.pribox{background:var(--sur);border:1px solid var(--bdr);border-radius:8px;overflow:hidden;margin-bottom:16px}
+.prih{padding:12px 18px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--bdr)}
+.pri-num{font-family:var(--mn);font-size:12px;font-weight:500;background:var(--sur2);border-radius:4px;padding:3px 8px;color:var(--mu)}
+.pri-title{font-weight:700;font-size:14px}
+.prib{padding:16px 18px}
+.pri-why{font-size:13px;color:var(--mu);line-height:1.6;margin-bottom:12px}
+.pri-do{background:var(--sur2);border-radius:5px;padding:12px 14px;margin-bottom:8px}
+.pri-do-t{font-family:var(--mn);font-size:10px;color:var(--g);text-transform:uppercase;letter-spacing:.09em;margin-bottom:6px}
+.pri-dont{background:var(--rl);border-radius:5px;padding:12px 14px}
+.pri-dont-t{font-family:var(--mn);font-size:10px;color:var(--r);text-transform:uppercase;letter-spacing:.09em;margin-bottom:6px}
+.pri-rule{font-size:12px;color:var(--tx);display:flex;gap:7px;padding:2px 0}
+.pri-rule::before{content:'→';color:var(--bdr);flex-shrink:0}
+
+/* FRESHNESS / ROTATION TABLE */
+.frtable{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:18px}
+.frtable th{background:var(--sur2);padding:9px 13px;text-align:left;font-family:var(--mn);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--mu);border-bottom:1px solid var(--bdr)}
+.frtable td{padding:9px 13px;border-bottom:1px solid rgba(226,224,216,.4);vertical-align:top}
+.frtable tr:last-child td{border-bottom:none}
+.angle-pill{display:inline-block;font-family:var(--mn);font-size:10px;padding:2px 7px;border-radius:3px;font-weight:500;margin-right:3px;margin-bottom:2px}
+.ap-1{background:#fff3e0;color:#c05e00}.ap-2{background:#e8f5e9;color:#1b5e20}
+.ap-3{background:#e3f2fd;color:#0d47a1}.ap-4{background:#f3e5f5;color:#4a148c}
+.ap-5{background:#fce4ec;color:#880e4f}
+
+/* KILL BOX */
+.kbox{background:var(--rl);border:1px solid var(--rc);border-radius:8px;padding:18px;margin-bottom:18px}
+.kbt{color:var(--r);font-weight:700;font-size:13px;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.kr{display:flex;align-items:flex-start;gap:9px;margin-bottom:7px;font-size:13px}
+.kr::before{content:'✕';color:var(--r);font-weight:700;font-size:13px;flex-shrink:0;margin-top:1px}
+
+/* FLOW STEPS */
+.fs4{display:flex;align-items:stretch;gap:0;margin-bottom:18px}
+.fstep{flex:1;position:relative}
+.fsin{background:var(--sur);border:1px solid var(--bdr);border-radius:6px;padding:13px;margin-right:4px;height:100%}
+.fsn{font-family:var(--mn);font-size:10px;color:var(--mu);margin-bottom:5px}
+.fst{font-weight:700;font-size:12px;margin-bottom:3px}
+.fsd{font-size:11px;color:var(--mu)}
+
+/* UTILS */
+hr{border:none;border-top:1px solid var(--bdr);margin:32px 0}
+ul.ck{list-style:none}
+ul.ck li{padding:3px 0;display:flex;gap:7px;font-size:13px}
+ul.ck li::before{content:'→';color:var(--bdr);flex-shrink:0}
+ul.ck li strong{color:var(--tx)}
+.note{font-size:12px;color:var(--mu);background:var(--sur2);border-radius:4px;padding:10px 13px;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-t">OnFlow · CRM Lifecycle Strategy 2026 · Growth MKT — Buyer Demand Pool</div>
+  <div class="topbar-m">Tool: OnFlow (Braze) · Data: Campaign-review (latest) · May 2026</div>
+</div>
+<div class="tabbar">
+  <button class="tabbtn on" onclick="st('a',this)">Audit &amp; Current Issues <span class="tbadge">Issues</span></button>
+  <button class="tabbtn" onclick="st('n',this)">New Approach <span class="tbadge g">Proposed</span></button>
+  <button class="tabbtn" onclick="st('r',this)">Execution Roadmap <span class="tbadge" style="background:var(--pl);color:var(--p)">Plan</span></button>
+  <button class="tabbtn" onclick="st('w',this)">Rewards Engine <span class="tbadge" style="background:#FFF3E0;color:#8A5500">Activation</span></button>
+</div>
+
+<!-- TAB 1: AUDIT -->
+<div id="pa" class="panel on">
+
+<div class="sec">
+  <div class="sh"><span class="sl">00 · Verdict</span><div class="sline"></div></div>
+  <div class="al r">
+    <div class="al-t">⚠ Structural Collapse — Không phải content problem đơn thuần</div>
+    <p>OnFlow đang vận hành một <strong>machine rỗng</strong>: 1,326 campaigns active nhưng chỉ 481 (36.3%) thực sự deliver. Những campaign còn lại là ghost. Những campaign đang deliver thì bị kẹp bởi re-eligibility fatigue và pool fragmentation. Aggregate direct open 22% đang che giấu per-campaign median 1.2%. Đây là structural failure ở governance, pool management, và lifecycle strategy.</p>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sh"><span class="sl">01 · Campaign Landscape — By the Numbers</span><div class="sline"></div></div>
+  <div class="sg4">
+    <div class="sc"><div class="slbl">Total campaigns</div><div class="sval b">1,672</div><div class="ssub">All-time created in OnFlow</div></div>
+    <div class="sc crit"><div class="slbl">Active campaigns</div><div class="sval r">1,326</div><div class="ssub">79% of all campaigns · 6 teams</div></div>
+    <div class="sc crit"><div class="slbl">Ghost campaigns</div><div class="sval r">845</div><div class="ssub">Active but zero delivery · 63.7%</div></div>
+    <div class="sc ok"><div class="slbl">Actually delivering</div><div class="sval g">481</div><div class="ssub">36.3% of "active" camps</div></div>
+  </div>
+  <div class="sg4">
+    <div class="sc crit"><div class="slbl">Re-eligibility = ON</div><div class="sval r">776</div><div class="ssub">58.5% camps · repeat same message</div></div>
+    <div class="sc crit"><div class="slbl">Campaigns &gt;1 year</div><div class="sval r">470</div><div class="ssub">35% active, never reviewed</div></div>
+    <div class="sc warn"><div class="slbl">20:30 congestion</div><div class="sval y">67</div><div class="ssub">Campaigns firing simultaneously</div></div>
+    <div class="sc warn"><div class="slbl">Unique creators</div><div class="sval y">49</div><div class="ssub">Review coverage: 0%</div></div>
+  </div>
+
+  <div class="sh" style="margin-top:28px;"><span class="sl">Active by Channel</span><div class="sline"></div></div>
+  <div class="ch5">
+    <div class="chi"><div class="chi-n">push_note</div><div class="chi-v" style="color:var(--r)">1,019</div><div class="chi-s">77% · dominant, overloaded</div></div>
+    <div class="chi"><div class="chi-n">inbox</div><div class="chi-v" style="color:var(--b)">175</div><div class="chi-s">13% · under-leveraged</div></div>
+    <div class="chi"><div class="chi-n">content_card</div><div class="chi-v" style="color:var(--p)">91</div><div class="chi-s">7% · good for retention</div></div>
+    <div class="chi"><div class="chi-n">popup</div><div class="chi-v" style="color:var(--y)">40</div><div class="chi-s">3% · interruptive</div></div>
+    <div class="chi"><div class="chi-n">ZNS</div><div class="chi-v" style="color:var(--mu)">1</div><div class="chi-s">Severely under-used</div></div>
+  </div>
+
+  <div class="sh"><span class="sl">Active by Team — Multi-team Congestion</span><div class="sline"></div></div>
+  <div class="card" style="padding:22px;">
+    <div class="brow"><div class="bnm" style="color:var(--r)">pty</div><div class="btrk"><div class="bfll" style="width:31%;background:rgba(214,59,47,.5)">413</div></div><div class="bval">31%</div></div>
+    <div class="brow"><div class="bnm" style="color:var(--mu)">others</div><div class="btrk"><div class="bfll" style="width:20%;background:rgba(107,107,96,.4)">260</div></div><div class="bval">20%</div></div>
+    <div class="brow"><div class="bnm" style="color:var(--b)">gds</div><div class="btrk"><div class="bfll" style="width:19%;background:rgba(37,99,235,.4)">255</div></div><div class="bval">19%</div></div>
+    <div class="brow"><div class="bnm" style="color:var(--y)">job</div><div class="btrk"><div class="bfll" style="width:16%;background:rgba(199,123,0,.4)">207</div></div><div class="bval">16%</div></div>
+    <div class="brow"><div class="bnm" style="color:var(--g)">veh</div><div class="btrk"><div class="bfll" style="width:9%;background:rgba(22,134,74,.4)">114</div></div><div class="bval">9%</div></div>
+    <div class="brow"><div class="bnm" style="color:var(--p)">revenue</div><div class="btrk"><div class="bfll" style="width:6%;background:rgba(124,58,237,.4)">77</div></div><div class="bval">6%</div></div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sh"><span class="sl">02 · Corrected Funnel + Power Law</span><div class="sline"></div></div>
+  <div class="plbox">
+    <div class="plt">// Power Law — con số 22% đang che giấu gì</div>
+    <p class="pli">Aggregate direct_open/sent = <strong>22%</strong> nhưng per-campaign median = <strong>1.2%</strong>. Gap 18×. Một số ít <strong>large campaigns</strong> (top 10% by volume) đạt CTR ~30%+ và drive hầu hết direct opens. <strong>Long tail hàng trăm campaigns</strong> chỉ đạt 1.2% median. Con số 22% aggregate là misleading — nó không phản ánh performance của majority campaigns.</p>
+    <div class="plns">
+      <div class="pln"><div class="n">22%</div><div class="l">Aggregate direct open (volume-weighted)</div></div>
+      <div class="pln"><div class="n">1.2%</div><div class="l">Per-campaign median CTR</div></div>
+      <div class="pln"><div class="n">2.6%</div><div class="l">Per-campaign mean CTR</div></div>
+      <div class="pln"><div class="n">18×</div><div class="l">Gap: aggregate vs median</div></div>
+    </div>
+  </div>
+
+  <div style="background:var(--sur);border:1px solid var(--bdr);border-radius:8px;padding:22px;margin-bottom:18px;">
+    <div style="font-family:var(--mn);font-size:10px;color:var(--mu);text-transform:uppercase;letter-spacing:.09em;margin-bottom:16px;">Funnel: Pool → Sent → Direct Open → CR to Metric</div>
+    <div class="frow"><div class="flbl">Eligible pool</div><div class="ftrk"><div class="ffill" style="width:100%;background:#3b82f6">Addressable users — 100%</div></div><div class="fpct" style="color:#3b82f6">100%</div><div class="fnote"></div></div>
+    <div class="frow"><div class="flbl">Actually delivering</div><div class="ftrk"><div class="ffill" style="width:36.3%;background:#f59e0b">481/1,326 camps</div></div><div class="fpct" style="color:#f59e0b">36.3%</div><div class="fnote" style="color:var(--r)">↓ 63.7% ghost camps</div></div>
+    <div class="frow"><div class="flbl">Sent → Reach</div><div class="ftrk"><div class="ffill" style="width:93.8%;background:#16864a">33.2M / 35.4M</div></div><div class="fpct" style="color:#16864a">93.8%</div><div class="fnote" style="color:var(--g)">✓ OK — delivery fine</div></div>
+    <div class="frow"><div class="flbl">Direct open (aggregate)</div><div class="ftrk"><div class="ffill" style="width:22%;background:#f59e0b">7.8M / 35.4M</div></div><div class="fpct" style="color:#f59e0b">22%</div><div class="fnote" style="color:var(--y)">⚠ driven by top camps</div></div>
+    <div class="frow"><div class="flbl">Median camp CTR</div><div class="ftrk"><div class="ffill" style="width:1.2%;background:#d63b2f"></div></div><div class="fpct" style="color:#d63b2f">1.2%</div><div class="fnote" style="color:var(--r)">↓ re-elig + generic content</div></div>
+    <div class="frow"><div class="flbl">CR → L2/L3 metric</div><div class="ftrk"><div class="ffill" style="width:2.5%;background:#7c3aed"></div></div><div class="fpct" style="color:#7c3aed">2.5%</div><div class="fnote" style="color:var(--p)">Not tracked per-campaign</div></div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sh"><span class="sl">03 · Re-eligibility — 4.4× CTR Gap</span><div class="sline"></div></div>
+  <div class="ctr2">
+    <div class="ctri"><div class="ctri-l">Re-eligibility OFF — không lặp lại</div><div class="ctri-v" style="color:var(--g)">6.63%</div><div class="ctri-s">550 campaigns · fresh message → user engage</div></div>
+    <div class="ctri crit"><div class="ctri-l">Re-eligibility ON — lặp cùng message</div><div class="ctri-v" style="color:var(--r)">1.52%</div><div class="ctri-s">776 campaigns · repeat sends → user ignores</div></div>
+  </div>
+  <div class="al b"><div class="al-t">Lever dễ nhất — không cần dev, chỉ config change</div><p>Flip re-eligibility=OFF cho tất cả promotional campaigns. Impact dự kiến: CTR tăng từ 2.5% → 4–5% trong 1–2 tuần. Daily occurrence + re-elig=ON = worst combo (337 daily camps đang burn user attention budget mỗi ngày).</p></div>
+</div>
+
+<div class="sec">
+  <div class="sh"><span class="sl">04 · Sending Time Congestion</span><div class="sline"></div></div>
+  <div class="card" style="padding:22px;">
+    <div style="font-family:var(--mn);font-size:10px;color:var(--mu);text-transform:uppercase;letter-spacing:.09em;margin-bottom:16px;">Số campaigns fire đồng thời — user nhận nhiều push trong cùng 1 khung giờ → freq-cap chặn hầu hết</div>
+    <div class="crow"><div class="ctm">20:30</div><div class="ctrk"><div class="cfll" style="width:100%;background:linear-gradient(90deg,#d63b2f,#f59e0b)">67 campaigns simultaneously</div></div><div class="ccnt" style="color:var(--r)">67</div></div>
+    <div class="crow"><div class="ctm">16:30</div><div class="ctrk"><div class="cfll" style="width:58%;background:linear-gradient(90deg,#d63b2f,#f59e0b)">39</div></div><div class="ccnt" style="color:var(--r)">39</div></div>
+    <div class="crow"><div class="ctm">10:30</div><div class="ctrk"><div class="cfll" style="width:48%;background:linear-gradient(90deg,#c77b00,#f59e0b)">32</div></div><div class="ccnt" style="color:var(--y)">32</div></div>
+    <div class="crow"><div class="ctm">11:30</div><div class="ctrk"><div class="cfll" style="width:48%;background:linear-gradient(90deg,#c77b00,#f59e0b)">32</div></div><div class="ccnt" style="color:var(--y)">32</div></div>
+    <div class="crow"><div class="ctm">19:30</div><div class="ctrk"><div class="cfll" style="width:21%;background:rgba(199,123,0,.5)">14</div></div><div class="ccnt">14</div></div>
+    <div class="crow"><div class="ctm">20:10</div><div class="ctrk"><div class="cfll" style="width:21%;background:rgba(199,123,0,.5)">14</div></div><div class="ccnt">14</div></div>
+    <div class="crow"><div class="ctm">18:30</div><div class="ctrk"><div class="cfll" style="width:21%;background:rgba(199,123,0,.5)">14</div></div><div class="ccnt">14</div></div>
+    <div class="note">Impact: 80% campaigns có freq-cap=ON. Khi 67 campaigns fire lúc 20:30, freq-cap chặn hầu hết → majority campaigns không reach user dù đang "active". Solution: max 10 campaigns/time slot, spread across day.</div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sh"><span class="sl">05 · Ghost Campaign Breakdown</span><div class="sline"></div></div>
+  <div class="card" style="padding:22px;">
+    <div style="font-family:var(--mn);font-size:10px;color:var(--mu);text-transform:uppercase;letter-spacing:.09em;margin-bottom:16px;">Active nhưng không deliver bất kỳ message nào — by channel</div>
+    <div class="grow"><div class="glbl">push_note</div><div class="gtrk"><div class="gact" style="width:36%">363 delivering</div><div class="gdead" style="width:64%">656 ghost (64%)</div></div></div>
+    <div style="height:6px"></div>
+    <div class="grow"><div class="glbl">inbox</div><div class="gtrk"><div class="gact" style="width:27%">47</div><div class="gdead" style="width:73%">128 ghost (73%)</div></div></div>
+    <div style="height:6px"></div>
+    <div class="grow"><div class="glbl">content_card</div><div class="gtrk"><div class="gact" style="width:58%">53</div><div class="gdead" style="width:42%">38 ghost (42%)</div></div></div>
+    <div style="height:6px"></div>
+    <div class="grow"><div class="glbl">popup</div><div class="gtrk"><div class="gact" style="width:43%">17</div><div class="gdead" style="width:57%">23 ghost (57%)</div></div></div>
+    <div class="note" style="margin-top:14px;">Hypothesis: Ghost campaigns = segments có 0 eligible users vì over-filtering, stale UCDP data, hoặc bị excluded bởi campaigns khác. Vẫn "active" vì không có kill criteria / scheduled review.</div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sh"><span class="sl">06 · Root Causes — 7 Layers</span><div class="sline"></div></div>
+
+  <div class="rc r">
+    <div class="rc-n">ROOT CAUSE 01 · CRITICAL — STRUCTURAL</div>
+    <div class="rc-t">Governance Collapse: Không có central ownership → Campaign proliferation không kiểm soát</div>
+    <div class="rc-d">OnFlow hiện là shared tool giữa 6+ teams nhưng không có central governance. 49 người tạo campaign tự do, không có review process, không có lifecycle policy, không có kill criteria. "Active" không có nghĩa là "đang deliver".</div>
+    <div class="rc3">
+      <div class="rce"><div class="el">Unique creators</div><div class="ev" style="color:var(--r)">49</div><div class="ed">49 người tạo camp, không qua central review</div></div>
+      <div class="rce"><div class="el">Review coverage</div><div class="ev" style="color:var(--r)">0%</div><div class="ed">Reviewer, Review Status, Start/End dates: 100% trống</div></div>
+      <div class="rce"><div class="el">Ghost rate</div><div class="ev" style="color:var(--r)">63.7%</div><div class="ed">845/1,326 active camps không có delivery data</div></div>
+    </div>
+  </div>
+
+  <div class="rc r">
+    <div class="rc-n">ROOT CAUSE 02 · CRITICAL — REACH POOL FRAGMENTATION</div>
+    <div class="rc-t">Pool Fragmentation: Quá nhiều campaigns chia nhỏ cùng user pool → mỗi campaign chỉ touch được fraction</div>
+    <div class="rc-d">22% sent rate không phải do delivery failure (sent→reach 93.8% OK). Vấn đề là <strong>ai được chọn vào pool</strong>. Khi 6 teams tạo 1,326 campaigns nhiều campaign target overlapping segments, frequency cap và eligibility rules xung đột nhau.</div>
+    <div class="rc3">
+      <div class="rce"><div class="el">Top segment reuse</div><div class="ev" style="color:var(--y)">31×</div><div class="ed">1 segment dùng bởi 31 campaigns khác nhau</div></div>
+      <div class="rce"><div class="el">Segments shared 3×+</div><div class="ev" style="color:var(--y)">93</div><div class="ed">93 segments bị shared bởi 3+ camps → pool xé nhỏ</div></div>
+      <div class="rce"><div class="el">20:30 congestion</div><div class="ev" style="color:var(--y)">67</div><div class="ed">67 camps fire đồng thời → freq-cap chặn hầu hết</div></div>
+    </div>
+  </div>
+
+  <div class="g2">
+    <div class="rc r" style="margin-bottom:0">
+      <div class="rc-n">ROOT CAUSE 03 · CRITICAL — CTR</div>
+      <div class="rc-t">Re-eligibility Abuse → User Fatigue → CTR Collapse</div>
+      <div class="rc-d">58.5% campaigns có re-eligibility=TRUE. User nhận cùng message nhiều lần → fatigue → ignore → CTR 1.52% vs 6.63% khi OFF.</div>
+      <div class="rc-ev"><div class="rc-ev-t">Evidence</div><ul>
+        <li><strong>CTR re-elig=OFF: 6.63%</strong> — 4.4× so với on</li>
+        <li><strong>CTR re-elig=ON: 1.52%</strong> — bị nghiền bởi repeats</li>
+        <li><strong>337 daily camps</strong> bắn user mỗi ngày</li>
+      </ul></div>
+    </div>
+    <div class="rc y" style="margin-bottom:0">
+      <div class="rc-n">ROOT CAUSE 04 · HIGH — CONTENT</div>
+      <div class="rc-t">Generic Content: Mass message → Low intent click</div>
+      <div class="rc-d">Segment quá rộng + không personalization → CTR thấp là kết quả tất yếu. 2.5% vs benchmark 5–10% cho personalized push.</div>
+      <div class="rc-ev"><div class="rc-ev-t">Evidence</div><ul>
+        <li><strong>Median push CTR: 1.2%</strong></li>
+        <li>"Once" campaigns: <strong>CTR 8.18%</strong> (fresh &gt; repeat)</li>
+        <li>77% push: không có personalization token</li>
+      </ul></div>
+    </div>
+  </div>
+  <div style="height:14px"></div>
+  <div class="g2">
+    <div class="rc r" style="margin-bottom:0">
+      <div class="rc-n">ROOT CAUSE 05 · HIGH — MEASUREMENT</div>
+      <div class="rc-t">Data Blindness: Không đo được → không optimize được</div>
+      <div class="rc-d">Biết "sent" và "click" nhưng không biết campaign nào drive DAU with 20 adview (L2) hay DAU with Lead (L3). Optimization chỉ theo CTR proxy.</div>
+      <div class="rc-ev"><div class="rc-ev-t">Evidence</div><ul>
+        <li>UCDP link: <strong>0% filled</strong> across all camps</li>
+        <li>Start/End dates: <strong>0% filled</strong></li>
+        <li>CTR data chỉ có ở <strong>36.3%</strong> camps</li>
+      </ul></div>
+    </div>
+    <div class="rc y" style="margin-bottom:0">
+      <div class="rc-n">ROOT CAUSE 06 · MEDIUM — CHANNEL MIX</div>
+      <div class="rc-t">Channel Imbalance: Push-heavy 77% → Single-channel dependency</div>
+      <div class="rc-d">Inbox, ZNS, content card bị under-utilized. Push-only đặt toàn bộ lifecycle vào 1 channel có thể bị opt-out hoặc suppressed bởi OS.</div>
+      <div class="rc-ev"><div class="rc-ev-t">Evidence</div><ul>
+        <li>Push: <strong>1,019 camps</strong> vs ZNS: <strong>1 camp</strong></li>
+        <li>ZNS: higher trust + open rate — under-used</li>
+        <li>No multi-channel sequencing</li>
+      </ul></div>
+    </div>
+  </div>
+  <div style="height:14px"></div>
+  <div class="rc" style="border-left-color:var(--p)">
+    <div class="rc-n">ROOT CAUSE 07 · OPPORTUNITY — UNOBSERVED BLIND SPOT</div>
+    <div class="rc-t">Missing Lifecycle Stage Mapping — Không phân biệt user đang ở stage nào → cùng message cho khác nhau lifecycle stage</div>
+    <div class="rc-d">93% campaigns là scheduled/session-based — không reactive với behavior. Chỉ 7% dùng event trigger. Không biết user đang ở D0, D3, D7, D7+ hay đã activated hay chưa. Đây là gap lớn nhất về lifecycle sophistication.</div>
+    <div class="rc3">
+      <div class="rce"><div class="el">Behavior-triggered</div><div class="ev" style="color:var(--p)">7%</div><div class="ed">Chỉ 93/1,326 camps dùng event trigger</div></div>
+      <div class="rce"><div class="el">Schedule-only</div><div class="ev" style="color:var(--mu)">93%</div><div class="ed">Không phản ứng với user behavior</div></div>
+      <div class="rce"><div class="el">CTR potential</div><div class="ev" style="color:var(--g)">4.4×</div><div class="ed">Nếu chuyển sang behavior trigger + re-elig OFF</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sh"><span class="sl">07 · Problem Summary Matrix</span><div class="sline"></div></div>
+  <div class="mtx">
+    <table style="width:100%;border-collapse:collapse">
+      <thead><tr class="mh"><th>Problem</th><th>Severity</th><th>Funnel Layer</th><th>Evidence</th><th>Fix Effort</th></tr></thead>
+      <tbody>
+        <tr class="mr"><td class="mrow-p">Governance collapse — 0% review</td><td><span class="pill r">CRITICAL</span></td><td><span class="pill gr">L0–L4</span></td><td style="font-size:12px;color:var(--mu)">845 ghost camps</td><td><span class="pill y">HIGH</span></td></tr>
+        <tr class="mr"><td class="mrow-p">Pool fragmentation — segment overlap</td><td><span class="pill r">CRITICAL</span></td><td><span class="pill gr">Sent Rate</span></td><td style="font-size:12px;color:var(--mu)">93 segs reused 3×+</td><td><span class="pill y">MED</span></td></tr>
+        <tr class="mr"><td class="mrow-p">Re-eligibility abuse → user fatigue</td><td><span class="pill r">CRITICAL</span></td><td><span class="pill gr">CTR</span></td><td style="font-size:12px;color:var(--mu)">1.52% vs 6.63%</td><td><span class="pill g">LOW ✓</span></td></tr>
+        <tr class="mr"><td class="mrow-p">Generic content — no personalization</td><td><span class="pill y">HIGH</span></td><td><span class="pill gr">CTR</span></td><td style="font-size:12px;color:var(--mu)">Median 1.2%</td><td><span class="pill y">MED</span></td></tr>
+        <tr class="mr"><td class="mrow-p">Time congestion — 67 camps @ 20:30</td><td><span class="pill y">HIGH</span></td><td><span class="pill gr">Reach</span></td><td style="font-size:12px;color:var(--mu)">Freq-cap blocks most</td><td><span class="pill g">LOW ✓</span></td></tr>
+        <tr class="mr"><td class="mrow-p">845 ghost campaigns (63.7% active)</td><td><span class="pill y">HIGH</span></td><td><span class="pill gr">Operations</span></td><td style="font-size:12px;color:var(--mu)">Pool dilution</td><td><span class="pill g">LOW ✓</span></td></tr>
+        <tr class="mr"><td class="mrow-p">0% CR tracking (no L2/L3 attribution)</td><td><span class="pill y">HIGH</span></td><td><span class="pill gr">Analytics</span></td><td style="font-size:12px;color:var(--mu)">No per-camp CR</td><td><span class="pill y">MED</span></td></tr>
+        <tr class="mr"><td class="mrow-p">Push-heavy 77% — single-channel risk</td><td><span class="pill b">MED</span></td><td><span class="pill gr">All layers</span></td><td style="font-size:12px;color:var(--mu)">ZNS = 1 camp</td><td><span class="pill y">MED</span></td></tr>
+        <tr class="mr"><td class="mrow-p">93% schedule-only — no behavior triggers</td><td><span class="pill p">OPPORTUNITY</span></td><td><span class="pill gr">CTR + CR</span></td><td style="font-size:12px;color:var(--mu)">7% event-triggered</td><td><span class="pill y">MED</span></td></tr>
+        <tr class="mr"><td class="mrow-p">470 campaigns &gt;1yr without review</td><td><span class="pill y">HIGH</span></td><td><span class="pill gr">Operations</span></td><td style="font-size:12px;color:var(--mu)">Stale content</td><td><span class="pill g">LOW ✓</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sh"><span class="sl">08 · Open Questions</span><div class="sline"></div></div>
+  <div class="card lb">
+    <div class="ct">Clarifying questions trước khi execute</div>
+    <ol style="list-style:decimal;padding-left:18px;font-size:13px;line-height:1.9;color:var(--mu)">
+      <li><strong style="color:var(--tx)">Track 2 resource:</strong> Ai own execution Track 2 từ phía Growth MKT? (Lifecycle MKT Strategist hay bạn trực tiếp?)</li>
+      <li><strong style="color:var(--tx)">Activation sequence hiện tại:</strong> Trong D0–D7, có bao nhiêu campaigns chạy như sequence (thứ tự D1, D3, D7) hay chạy độc lập?</li>
+      <li><strong style="color:var(--tx)">Global freq-cap setting:</strong> OnFlow có global cap (e.g. max 2 push/user/day) không, hay chỉ per-campaign?</li>
+      <li><strong style="color:var(--tx)">Target baseline:</strong> Muốn đưa direct open rate lên bao nhiêu? CTR lên bao nhiêu? Trong timeframe nào?</li>
+    </ol>
+  </div>
+</div>
+
+</div><!-- end panel audit -->
+
+<!-- TAB 2: NEW APPROACH -->
+<div id="pn" class="panel">
+
+<style>
+/* ACCORDION */
+.acc{background:var(--sur);border:1px solid var(--bdr);border-radius:8px;overflow:hidden;margin-bottom:8px;cursor:pointer;user-select:none}
+.acc:hover .acc-h{background:var(--bg)}
+.acc-h{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:0;transition:background .15s}
+.acc.open .acc-h{border-bottom:1px solid var(--bdr)}
+.acc-num{font-family:var(--mn);font-size:11px;font-weight:500;background:var(--sur2);border-radius:4px;padding:3px 8px;color:var(--mu);flex-shrink:0;min-width:28px;text-align:center}
+.acc-main{flex:1}
+.acc-title{font-weight:700;font-size:13px;color:var(--tx)}
+.acc-sum{font-size:11px;color:var(--mu);margin-top:2px}
+.acc-chev{font-size:14px;color:var(--mu);transition:transform .2s;flex-shrink:0}
+.acc.open .acc-chev{transform:rotate(180deg)}
+.acc-b{display:none;padding:16px 18px;border-top:0}
+.acc.open .acc-b{display:block}
+.pri-why{font-size:13px;color:var(--mu);line-height:1.6;margin-bottom:12px}
+.pri-do{background:var(--sur2);border-radius:5px;padding:11px 13px;margin-bottom:8px}
+.pri-do-t{font-family:var(--mn);font-size:10px;color:var(--g);text-transform:uppercase;letter-spacing:.09em;margin-bottom:6px}
+.pri-dont{background:var(--rl);border-radius:5px;padding:11px 13px}
+.pri-dont-t{font-family:var(--mn);font-size:10px;color:var(--r);text-transform:uppercase;letter-spacing:.09em;margin-bottom:6px}
+.pri-rule{font-size:12px;color:var(--tx);display:flex;gap:7px;padding:2px 0}
+.pri-rule::before{content:'→';color:var(--bdr);flex-shrink:0}
+/* D-DAY timeline inside accordion */
+.tl{display:flex;align-items:flex-start;gap:0;min-width:500px;position:relative}
+.tl::before{content:'';position:absolute;top:18px;left:24px;right:24px;height:1px;background:var(--bdr);z-index:0}
+.tday{display:flex;flex-direction:column;align-items:center;gap:5px;flex:1;position:relative;z-index:1}
+.tday-dot{width:10px;height:10px;border-radius:50%;border:2px solid var(--bdr);background:var(--sur);flex-shrink:0}
+.tday-dot.act{background:var(--b);border-color:var(--b)}.tday-dot.swap{background:var(--y);border-color:var(--y)}.tday-dot.end{background:var(--p);border-color:var(--p)}.tday-dot.install{background:var(--tx);border-color:var(--tx)}
+.tday-lbl{font-family:var(--mn);font-size:10px;font-weight:500;color:var(--mu)}
+.tday-card{background:var(--sur2);border:0.5px solid var(--bdr);border-radius:5px;padding:5px 7px;text-align:center;min-width:62px}
+.tday-card.tc-b{background:var(--bl);border-color:var(--bc)}.tday-card.tc-y{background:var(--yl);border-color:var(--yc)}.tday-card.tc-g{background:var(--gl);border-color:var(--gc)}.tday-card.tc-p{background:var(--pl);border-color:var(--pc)}.tday-card.tc-k{background:var(--sur2);border-color:var(--bdr)}
+.tct{font-size:10px;font-weight:500;line-height:1.3}.tc-b .tct{color:var(--b)}.tc-y .tct{color:var(--y)}.tc-g .tct{color:var(--g)}.tc-p .tct{color:var(--p)}.tc-k .tct{color:var(--mu)}
+.tcs{font-size:9px;color:var(--mu);margin-top:2px;line-height:1.3}
+.tl-legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;font-size:11px}
+.tl-li{display:flex;align-items:center;gap:5px}.tl-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+/* FRESHNESS TABLE (in Pillar 2) */
+.frtable{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:14px}
+.frtable th{background:var(--sur2);padding:8px 12px;text-align:left;font-family:var(--mn);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--mu);border-bottom:1px solid var(--bdr)}
+.frtable td{padding:8px 12px;border-bottom:1px solid rgba(226,224,216,.4);vertical-align:top}
+.frtable tr:last-child td{border-bottom:none}
+.angle-pill{display:inline-block;font-family:var(--mn);font-size:10px;padding:2px 7px;border-radius:3px;font-weight:500;margin-right:3px}
+.ap-1{background:#fff3e0;color:#c05e00}.ap-2{background:#e8f5e9;color:#1b5e20}.ap-3{background:#e3f2fd;color:#0d47a1}.ap-4{background:#f3e5f5;color:#4a148c}.ap-5{background:#fce4ec;color:#880e4f}
+</style>
+
+<div class="al g"><div class="al-t">Framework Overview — 2 Pillars</div><p><strong>(1) Operations</strong>: giải phóng pool, kill deadweight, score &amp; prioritize campaigns. <strong>(2) Relevant Content</strong>: map 4 user groups vào đúng message theo lifecycle + onboarding signal + behavior depth. Cả hai pillars dẫn dắt bởi 6 design principles bên dưới.</p></div>
+
+<!-- DESIGN PRINCIPLES -->
+<div class="sec">
+  <div class="sh"><span class="sl">Design Principles — click để xem chi tiết</span><div class="sline"></div></div>
+
+  <div class="acc" onclick="ta(this)">
+    <div class="acc-h"><div class="acc-num">P1</div><div class="acc-main"><div class="acc-title">Anti-Cannibalization</div><div class="acc-sum">Mỗi user nhận đúng 1 message từ 1 campaign tại 1 thời điểm — các team không cạnh tranh pool của nhau</div></div><div class="acc-chev">↓</div></div>
+    <div class="acc-b">
+      <div class="pri-why">Khi nhiều teams tạo campaigns target overlapping segments, frequency cap chặn hầu hết. Không campaign nào reach đủ users, tất cả đều underperform. Kết quả: vừa lãng phí resource vừa làm giảm performance của cả hệ thống.</div>
+      <div class="pri-do"><div class="pri-do-t">✓ Do</div>
+        <div class="pri-rule">Mỗi segment pool chỉ được assign cho <strong>1 active campaign per vertical per day</strong></div>
+        <div class="pri-rule">Campaigns từ các team khác nhau target cùng user phải có <strong>explicit priority order</strong> và không overlap về timing</div>
+        <div class="pri-rule">Growth MKT giữ <strong>segment registry</strong>: ai own segment nào, campaign nào đang dùng</div>
+      </div>
+      <div class="pri-dont"><div class="pri-dont-t">✕ Don't</div>
+        <div class="pri-rule">2 campaigns từ 2 teams cùng target cùng segment mà không có priority agreement</div>
+        <div class="pri-rule">Tạo campaign mới nhắm segment đã dùng trong campaign đang active mà không check overlap</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="acc" onclick="ta(this)">
+    <div class="acc-h"><div class="acc-num">P2</div><div class="acc-main"><div class="acc-title">Kill Ghost Campaigns</div><div class="acc-sum">Active ≠ có giá trị — không deliver = không tồn tại; kill cycle là default operation</div></div><div class="acc-chev">↓</div></div>
+    <div class="acc-b">
+      <div class="pri-why">845 ghost campaigns đang chiếm quota, confuse reporting, và dilute governance. Chúng không có upside nhưng có downside: tốn time review, chiếm slot freq-cap, làm pool allocation sai.</div>
+      <div class="pri-do"><div class="pri-do-t">✓ Do</div>
+        <div class="pri-rule"><strong>Monthly kill cycle</strong>: auto-flag bất kỳ campaign nào không có delivery trong 30 ngày</div>
+        <div class="pri-rule">Mỗi campaign khi tạo <strong>bắt buộc có end-date</strong>; nếu ongoing thì phải review monthly</div>
+        <div class="pri-rule">Creator nhận notification 7 ngày trước khi campaign bị auto-deactivate</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="acc" onclick="ta(this)">
+    <div class="acc-h"><div class="acc-num">P3</div><div class="acc-main"><div class="acc-title">Segment Precision</div><div class="acc-sum">Mỗi campaign phải có segment đủ lớn (≥10K), đủ focused, và không overlap với campaign khác</div></div><div class="acc-chev">↓</div></div>
+    <div class="acc-b">
+      <div class="pri-why">Pool 500 users = không scalable. Pool 2M users nhưng shared với 30 campaigns = không reach đủ. Segment cần vừa đủ lớn để có statistically significant learning, vừa đủ focused để message có relevance.</div>
+      <div class="pri-do"><div class="pri-do-t">✓ Do</div>
+        <div class="pri-rule"><strong>Minimum pool size: 10,000 users</strong> để tạo campaign mới</div>
+        <div class="pri-rule">Segment definition phải include <strong>exclusion logic</strong>: "users NOT in campaign X, Y, Z"</div>
+        <div class="pri-rule">GDS/VEH: location đến city level là đủ. PTY/JOB: cần đến quận/phường</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="acc" onclick="ta(this)">
+    <div class="acc-h"><div class="acc-num">P4</div><div class="acc-main"><div class="acc-title">Value-first &amp; Scalable</div><div class="acc-sum">Mỗi campaign phải trả lời: user nhận được gì cụ thể? Và nếu win, scale như thế nào?</div></div><div class="acc-chev">↓</div></div>
+    <div class="acc-b">
+      <div class="pri-why">Nhiều campaigns gửi theo logic "ta cần gửi" thay vì "user cần nhận". Một campaign tốt phải deliver value rõ ràng cho user VÀ có clear path to scale nếu performance tốt.</div>
+      <div class="pri-do"><div class="pri-do-t">✓ Value test — trả lời 2 câu trước khi tạo campaign</div>
+        <div class="pri-rule"><strong>User value:</strong> "User mở message này sẽ thấy/nhận được gì cụ thể mà có ích?"</div>
+        <div class="pri-rule"><strong>Scalability:</strong> "Nếu CTR đạt 5%+, tôi có thể tăng pool lên 10× không? Cách nào?"</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="acc" onclick="ta(this)">
+    <div class="acc-h"><div class="acc-num">P5</div><div class="acc-main"><div class="acc-title">Room for Experiments</div><div class="acc-sum">Reserve 15% pool capacity cho experiment campaigns — không để automation chiếm hết pool</div></div><div class="acc-chev">↓</div></div>
+    <div class="acc-b">
+      <div class="pri-why">Nếu toàn bộ pool bị tie vào production campaigns, không còn chỗ để test ý tưởng mới. Experiment velocity là một trong những yếu tố growth quan trọng nhất.</div>
+      <div class="pri-do"><div class="pri-do-t">✓ Do</div>
+        <div class="pri-rule"><strong>Reserve 15% pool capacity</strong> cho experiment campaigns</div>
+        <div class="pri-rule">Experiment campaigns chạy với <strong>holdout group 50/50</strong>, tối thiểu 2 tuần</div>
+        <div class="pri-rule">Kết quả phải được document; nếu win → promote lên production với full pool</div>
+        <div class="pri-rule">Nếu experiment lose sau 2 tuần → kill ngay, không "để đó coi thêm"</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="acc" onclick="ta(this)">
+    <div class="acc-h"><div class="acc-num">P6</div><div class="acc-main"><div class="acc-title">D-day Sequencing</div><div class="acc-sum">Activation campaigns là 1 chuỗi có thứ tự — mỗi campaign biết user đã nhận gì và đang ở tier nào</div></div><div class="acc-chev">↓</div></div>
+    <div class="acc-b">
+      <div class="al r" style="margin-bottom:14px;"><div class="al-t">Blind spot cần audit ngay</div><p>Chưa thống kê tỉ lệ campaigns đang chạy như sequence vs. độc lập. Nếu fire độc lập, user có thể nhận 3 push cùng ngày D1 từ 3 campaigns khác nhau, rồi không nhận gì ở D3-D6 — waste hoàn toàn 3-push/day cap.</p></div>
+      <div class="card" style="padding:0;overflow:hidden;margin-bottom:12px;">
+        <div style="padding:9px 14px;background:var(--sur2);border-bottom:1px solid var(--bdr);font-family:var(--mn);font-size:10px;color:var(--mu);letter-spacing:.09em;text-transform:uppercase;">D-day timeline per user — install-relative, not calendar</div>
+        <div style="padding:14px 16px;overflow-x:auto;">
+          <div class="tl">
+            <div class="tday"><div class="tday-lbl">D0</div><div class="tday-dot install"></div><div class="tday-card tc-k"><div class="tct">Install</div><div class="tcs">Onboarding</div></div></div>
+            <div class="tday"><div class="tday-lbl">D1</div><div class="tday-dot act"></div><div class="tday-card tc-b"><div class="tct">Camp 1</div><div class="tcs">Tier 1 · A/B</div></div></div>
+            <div class="tday"><div class="tday-lbl">D2</div><div class="tday-dot"></div><div class="tday-card tc-k"><div class="tct">Rest</div><div class="tcs">Observe</div></div></div>
+            <div class="tday"><div class="tday-lbl">D3</div><div class="tday-dot swap"></div><div class="tday-card tc-y"><div class="tct">Camp 2</div><div class="tcs">Tier 1 swap<br>if 0–4</div></div></div>
+            <div class="tday"><div class="tday-lbl">D4</div><div class="tday-dot act"></div><div class="tday-card tc-b"><div class="tct">Camp 3</div><div class="tcs">Tier 2 · A/B<br>if 5–19</div></div></div>
+            <div class="tday"><div class="tday-lbl">D5</div><div class="tday-dot"></div><div class="tday-card tc-k"><div class="tct">Rest</div><div class="tcs">Observe</div></div></div>
+            <div class="tday"><div class="tday-lbl">D6</div><div class="tday-dot swap"></div><div class="tday-card tc-y"><div class="tct">Camp 4</div><div class="tcs">Tier 2 swap<br>if &lt;20</div></div></div>
+            <div class="tday"><div class="tday-lbl">D7</div><div class="tday-dot end"></div><div class="tday-card tc-p"><div class="tct">Exit</div><div class="tcs">→ Week 2</div></div></div>
+          </div>
+          <div class="tl-legend">
+            <div class="tl-li"><div class="tl-dot" style="background:var(--b)"></div>Campaign send</div>
+            <div class="tl-li"><div class="tl-dot" style="background:var(--y)"></div>Swap campaign</div>
+            <div class="tl-li"><div class="tl-dot" style="background:var(--p)"></div>Exit checkpoint</div>
+            <div class="tl-li"><div class="tl-dot" style="background:var(--bdr);border:1px solid var(--bdr)"></div>Observation day</div>
+          </div>
+        </div>
+      </div>
+      <div class="g3" style="margin-bottom:12px;">
+        <div class="card lg" style="margin-bottom:0;padding:14px;"><div class="ct" style="font-size:12px;">Rule 1 — D-day order, not calendar</div><div style="font-size:12px;color:var(--mu);margin-top:4px;">Camp 2 fires on User's D3 (3 days after install), not calendar day 3. Each user has their own sequence clock.</div></div>
+        <div class="card lb" style="margin-bottom:0;padding:14px;"><div class="ct" style="font-size:12px;">Rule 2 — Conditional fire</div><div style="font-size:12px;color:var(--mu);margin-top:4px;">Camp 2 only fires if user still 0–4 adview after Camp 1. Activated users exit sequence immediately.</div></div>
+        <div class="card lp" style="margin-bottom:0;padding:14px;"><div class="ct" style="font-size:12px;">Rule 3 — Max 1 activation/day</div><div style="font-size:12px;color:var(--mu);margin-top:4px;">Global cap = 3/day. Slot 1 = activation (priority D7). Slot 2 = engagement. Slot 3 = vertical/system.</div></div>
+      </div>
+      <div class="al b" style="margin-bottom:0;"><div class="al-t">Implementation options</div><p><strong>Option A (preferred): Canvas/Journey</strong> — 1 Braze Canvas per branch, steps trigger by D-day delay. Cần confirm với Đạt về Canvas availability.<br><strong>Option B: UCDP sequential segments</strong> — date-relative segments: "install_d1_not_activated". Intern can own daily segment refresh.</p></div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- ACTIVATION FLOW -->
+<div class="sec">
+  <div class="sh"><span class="sl">Activation Flow — D0 to D7</span><div class="sline"></div></div>
+  <div class="al y" style="margin-bottom:14px;"><div class="al-t">Context từ project data (Post-launch Feb 2026)</div><p>Complete onboarding → 41.7% đạt ≥20 adview D7 (+39.5%). Skip → 32.4%. Location là #1 hook, Category là #2. 24% users skip — 50.2% là returning users. Max 4 campaigns per user across D7.</p></div>
+
+  <!-- OVERVIEW FLOW DIAGRAM -->
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;padding:10px 14px;background:var(--sur2);border-radius:6px;border:1px solid var(--bdr);">
+    <div style="display:flex;gap:8px;flex-shrink:0;">
+      <div style="background:var(--bl);border:0.5px solid var(--bc);border-radius:5px;padding:6px 12px;text-align:center;">
+        <div style="font-family:var(--mn);font-size:9px;font-weight:500;color:var(--b);letter-spacing:.09em;text-transform:uppercase;margin-bottom:3px;">L2 · Activation</div>
+        <div style="font-family:var(--mn);font-size:13px;font-weight:600;color:var(--b);">20 adview</div>
+        <div style="font-size:10px;color:var(--b);opacity:.7;margin-top:1px;">new app user, any cate</div>
+      </div>
+      <div style="background:var(--pl);border:0.5px solid var(--pc);border-radius:5px;padding:6px 12px;text-align:center;">
+        <div style="font-family:var(--mn);font-size:9px;font-weight:500;color:var(--p);letter-spacing:.09em;text-transform:uppercase;margin-bottom:3px;">L3 · Engagement</div>
+        <div style="font-family:var(--mn);font-size:13px;font-weight:600;color:var(--p);">make lead</div>
+        <div style="font-size:10px;color:var(--p);opacity:.7;margin-top:1px;">new app user with lead</div>
+      </div>
+    </div>
+    <div style="font-size:12px;color:var(--mu);line-height:1.6;padding-left:12px;border-left:1px solid var(--bdr);">
+      <strong style="color:var(--tx);">New approach:</strong> Week 1 theo đuổi đồng thời cả L2 &amp; L3 — không chỉ dừng ở 20 adview. Nếu phát hiện lead signal ở bất kỳ adview level nào → chuyển sang early lead push ngay, không chờ đủ 20 adview.
+    </div>
+  </div>
+
+  <div class="card" style="padding:0;overflow:hidden;margin-bottom:14px;">
+    <div style="padding:11px 16px;background:var(--sur2);border-bottom:1px solid var(--bdr);font-family:var(--mn);font-size:10px;color:var(--mu);letter-spacing:.09em;text-transform:uppercase;">Activation &amp; Engagement overview — entry paths + onboarding branch + routing logic</div>
+    <div style="padding:20px 16px;">
+      <style>
+      .dov{font-family:var(--fn);font-size:12px;color:var(--tx)}
+      .dr{display:flex;justify-content:center;gap:8px;align-items:stretch}
+      .de1{background:#E6F1FB;border:0.5px solid #85B7EB;color:#0C447C;border-radius:6px;padding:7px 10px;text-align:center;font-size:12px;font-weight:500;flex:1}
+      .de2{background:#EAF3DE;border:0.5px solid #97C459;color:#173404;border-radius:6px;padding:7px 10px;text-align:center;font-size:12px;font-weight:500;flex:1}
+      .de3{background:#FAEEDA;border:0.5px solid #EF9F27;color:#412402;border-radius:6px;padding:7px 10px;text-align:center;font-size:12px;font-weight:500;flex:1}
+      .de1 .dsub,.de2 .dsub,.de3 .dsub{font-size:10px;font-weight:400;margin-top:1px;opacity:.75}
+      .demain{background:#1a1a18;border:0.5px solid #5F5E5A;color:#F1EFE8;border-radius:6px;padding:8px 14px;text-align:center;font-size:12px;font-weight:500;min-width:240px}
+      .demain .dsub{color:#B4B2A9;font-size:10px;font-weight:400;margin-top:2px}
+      .deob{background:#EEEDFE;border:0.5px solid #AFA9EC;color:#26215C;border-radius:6px;padding:8px 14px;text-align:center;font-size:12px;font-weight:500;min-width:240px}
+      .deob .dsub{color:#7F77DD;font-size:10px;font-weight:400;margin-top:2px}
+      .ddn{display:flex;justify-content:center;margin:3px 0}
+      .dda{display:flex;flex-direction:column;align-items:center}
+      .ddl{width:1px;height:13px;background:var(--bdr)}.ddt{width:0;height:0;border-left:3.5px solid transparent;border-right:3.5px solid transparent;border-top:5px solid var(--bdr)}
+      .dspl{position:relative;width:580px;height:24px;margin:3px auto}
+      .dsv{position:absolute;left:50%;top:0;width:1px;height:24px;background:var(--bdr)}
+      .dsh{position:absolute;left:120px;top:24px;right:120px;height:1px;background:var(--bdr)}
+      .dsla{position:absolute;left:120px;top:24px;width:0;height:0;border-left:3.5px solid transparent;border-right:3.5px solid transparent;border-top:5px solid var(--bdr)}
+      .dsra{position:absolute;right:120px;top:24px;width:0;height:0;border-left:3.5px solid transparent;border-right:3.5px solid transparent;border-top:5px solid var(--bdr)}
+      .dbrw{display:flex;gap:10px;width:580px;margin:0 auto}
+      .dbc{display:flex;flex-direction:column;align-items:center;gap:0;flex:1}
+      .dbhy{background:#27500A;border:0.5px solid #3B6D11;border-radius:6px;padding:6px 12px;text-align:center;font-weight:500;font-size:12px;color:#C0DD97;width:100%;box-sizing:border-box}
+      .dbhn{background:#633806;border:0.5px solid #854F0B;border-radius:6px;padding:6px 12px;text-align:center;font-weight:500;font-size:12px;color:#FAC775;width:100%;box-sizing:border-box}
+      .dctx{font-size:10px;color:var(--mu);text-align:center;padding:2px 6px;margin-top:3px;width:100%;box-sizing:border-box}
+      .dsv2{width:1px;height:6px;background:var(--bdr);margin:0 auto}.dsa{width:0;height:0;border-left:3.5px solid transparent;border-right:3.5px solid transparent;border-top:5px solid var(--bdr);margin:0 auto}
+      .dtier{border-radius:6px;width:100%;box-sizing:border-box;overflow:hidden;border:0.5px solid}
+      .dtier-y{border-color:#639922}.dtier-n{border-color:#BA7517}
+      .dtier-head{padding:7px 10px;font-weight:500;font-size:12px}
+      .dtier-y .dtier-head{background:#EAF3DE;color:#173404}.dtier-n .dtier-head{background:#FAEEDA;color:#412402}
+      .dtier-ab{font-size:10px;font-weight:400;font-family:var(--mn);margin-top:2px;opacity:.6}
+      .droutes{padding:6px 8px;display:flex;flex-direction:column;gap:3px;background:var(--sur)}
+      .drt{display:flex;align-items:center;gap:5px;font-size:11px;padding:3px 7px;border-radius:4px;border:0.5px solid}
+      .drt-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+      .drg{background:var(--gl);border-color:var(--gc);color:var(--g)}.drg .drt-dot{background:var(--g)}
+      .drb{background:var(--bl);border-color:var(--bc);color:var(--b)}.drb .drt-dot{background:var(--b)}
+      .drr{background:var(--rl);border-color:var(--rc);color:var(--r)}.drr .drt-dot{background:var(--r)}
+      .dro{background:#FFF3E0;border-color:#F5A623;color:#8A5500}.dro .drt-dot{background:#F5A623}
+      .dmrg{display:flex;justify-content:center;width:100%;margin:0}
+      .dmg{position:relative;width:580px;height:24px}
+      .dmgl{position:absolute;left:60px;top:0;width:1px;height:24px;background:var(--bdr)}
+      .dmgr{position:absolute;right:60px;top:0;width:1px;height:24px;background:var(--bdr)}
+      .dmgh{position:absolute;left:60px;top:24px;right:60px;height:1px;background:var(--bdr)}
+      .dmgv{position:absolute;left:50%;top:24px;width:1px;height:12px;background:var(--bdr)}
+      .dmgt{position:absolute;left:calc(50% - 3.5px);top:36px;width:0;height:0;border-left:3.5px solid transparent;border-right:3.5px solid transparent;border-top:5px solid var(--bdr)}
+      .dw2w{width:580px;margin:4px auto 0}
+      .dw2h{text-align:center;font-size:10px;font-family:var(--mn);color:var(--mu);letter-spacing:.09em;text-transform:uppercase;margin-bottom:5px;padding:5px 8px;background:var(--sur2);border-radius:6px}
+      .dw2g{display:flex;gap:5px}
+      .dwg{flex:1;border-radius:6px;padding:8px 9px;border:0.5px solid}
+      .dwg1{background:#FAEEDA;border-color:#EF9F27}.dwg2{background:#FFF3E0;border-color:#F5A623}
+      .dwg3{background:#EEEDFE;border-color:#AFA9EC}.dwg4{background:#EAF3DE;border-color:#97C459}
+      .dwt{font-weight:500;font-size:11px}.dws{font-size:10px;margin-top:2px}
+      .dwg1 .dwt,.dwg1 .dws{color:#412402}.dwg2 .dwt,.dwg2 .dws{color:#6B3A00}
+      .dwg3 .dwt,.dwg3 .dws{color:#26215C}.dwg4 .dwt,.dwg4 .dws{color:#173404}
+      .dmetric{display:flex;gap:6px;width:580px;margin:0 auto 4px;background:var(--sur2);border:0.5px solid var(--bdr);border-radius:6px;padding:10px 12px;align-items:center}
+      .dmetric-note{font-size:10px;color:var(--mu);flex:1;line-height:1.5}
+      .dml{display:flex;gap:6px;flex:1}
+      .dmbox{flex:1;border-radius:5px;padding:7px 10px;border:0.5px solid;text-align:center}
+      .dml2{background:var(--bl);border-color:var(--bc)}.dml3{background:var(--pl);border-color:var(--pc)}
+      .dm-lbl{font-family:var(--mn);font-size:9px;font-weight:500;letter-spacing:.08em;margin-bottom:3px}
+      .dml2 .dm-lbl{color:var(--b)}.dml3 .dm-lbl{color:var(--p)}
+      .dm-val{font-size:11px;font-weight:600}
+      .dml2 .dm-val{color:var(--b)}.dml3 .dm-val{color:var(--p)}
+      .dm-sub{font-size:10px;opacity:.75}
+      .dml2 .dm-sub{color:var(--b)}.dml3 .dm-sub{color:var(--p)}
+      </style>
+      <div class="dov">
+        <div class="dr" style="width:580px;margin:0 auto">
+          <div class="de1"><div>Web user</div><div class="dsub">Web-to-App + rewards</div></div>
+          <div class="de2"><div>Direct download</div><div class="dsub">Self-search App Store</div></div>
+          <div class="de3"><div>Digital campaign</div><div class="dsub">Ad click → install</div></div>
+        </div>
+        <div class="ddn"><div class="dda"><div class="ddl"></div><div class="ddt"></div></div></div>
+        <div class="dr"><div class="demain"><div>New App User — D0</div><div class="dsub">D1–D7: track 20 adview + detect lead signal simultaneously</div></div></div>
+        <div class="ddn"><div class="dda"><div class="ddl"></div><div class="ddt"></div></div></div>
+
+        <div class="dr"><div class="deob"><div>Onboarding flow</div><div class="dsub">Shown immediately after first app open</div></div></div>
+        <div class="dspl"><div class="dsv"></div><div class="dsh"></div><div class="dsla"></div><div class="dsra"></div></div>
+        <div class="dbrw">
+          <div class="dbc">
+            <div class="dbhy">YES — completed onboarding</div>
+            <div class="dctx">Buyer/seller + location + category declared</div>
+            <div class="dsv2"></div><div class="dsa"></div>
+            <div style="height:4px"></div>
+            <div class="dtier dtier-y">
+              <div class="dtier-head">Tier 1 — 0–4 adview<div class="dtier-ab">A/B tested · 1 campaign · swap if no engage</div></div>
+              <div class="droutes">
+                <div class="drt drg"><div class="drt-dot"></div>≥20 adview → exit to Week 2</div>
+                <div class="drt dro"><div class="drt-dot"></div>lead signal detected → early lead push</div>
+                <div class="drt drb"><div class="drt-dot"></div>5–19 adview, no signal → Tier 2</div>
+                <div class="drt drr"><div class="drt-dot"></div>still 0–4 → Camp 2 swap → exit to Week 2</div>
+              </div>
+            </div>
+            <div class="dsv2"></div><div class="dsa"></div>
+            <div style="height:4px"></div>
+            <div class="dtier dtier-y">
+              <div class="dtier-head">Tier 2 — 5–19 adview<div class="dtier-ab">A/B tested · sub-category specific · swap if no engage</div></div>
+              <div class="droutes">
+                <div class="drt drg"><div class="drt-dot"></div>≥20 adview → exit to Week 2</div>
+                <div class="drt dro"><div class="drt-dot"></div>lead signal detected → early lead push</div>
+                <div class="drt drr"><div class="drt-dot"></div>still &lt;20 → Camp 4 swap → exit to Week 2</div>
+              </div>
+            </div>
+            <div class="dsv2"></div>
+          </div>
+          <div class="dbc">
+            <div class="dbhn">NO — skipped onboarding</div>
+            <div class="dctx">Infer location via IP/GPS · track behavior footprint</div>
+            <div class="dsv2"></div><div class="dsa"></div>
+            <div style="height:4px"></div>
+            <div class="dtier dtier-n">
+              <div class="dtier-head">Tier 1 — 0–4 adview<div class="dtier-ab">A/B tested · generic discovery · swap if no engage</div></div>
+              <div class="droutes">
+                <div class="drt drg"><div class="drt-dot"></div>≥20 adview → exit to Week 2</div>
+                <div class="drt dro"><div class="drt-dot"></div>lead signal detected → early lead push</div>
+                <div class="drt drb"><div class="drt-dot"></div>5–19 adview, no signal → Tier 2</div>
+                <div class="drt drr"><div class="drt-dot"></div>still 0–4 → Camp 2 swap → exit to Week 2</div>
+              </div>
+            </div>
+            <div class="dsv2"></div><div class="dsa"></div>
+            <div style="height:4px"></div>
+            <div class="dtier dtier-n">
+              <div class="dtier-head">Tier 2 — 5–19 adview<div class="dtier-ab">A/B tested · classify by dominant category · swap if no engage</div></div>
+              <div class="droutes">
+                <div class="drt drg"><div class="drt-dot"></div>≥20 adview → exit to Week 2</div>
+                <div class="drt dro"><div class="drt-dot"></div>lead signal detected → early lead push</div>
+                <div class="drt drr"><div class="drt-dot"></div>still &lt;20 → Camp 4 swap → exit to Week 2</div>
+              </div>
+            </div>
+            <div class="dsv2"></div>
+          </div>
+        </div>
+        <div class="dmrg"><div class="dmg"><div class="dmgl"></div><div class="dmgr"></div><div class="dmgh"></div><div class="dmgv"></div><div class="dmgt"></div></div></div>
+        <div style="height:18px"></div>
+        <div class="dw2w">
+          <div class="dw2h">Week 2+ · Engagement campaigns — drive to make lead</div>
+          <div class="dw2g">
+            <div class="dwg dwg1"><div class="dwt">Grp A · &lt;20 adview · 0 lead</div><div class="dws">Low browse, 4 msgs seen → targeted item-level, not inventory</div></div>
+            <div class="dwg dwg2"><div class="dwt">Grp B · lead signal detected</div><div class="dws">Any adview, showed intent → push to close the lead now</div></div>
+            <div class="dwg dwg3"><div class="dwt">Grp C · 20+ · 0 lead</div><div class="dws">Active browser, no contact → urgency + friction-reduce</div></div>
+            <div class="dwg dwg4"><div class="dwt">Grp D · 20+ · 1+ lead</div><div class="dws">Best users → new inventory + cross-sell + retention</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- A/B SWAP LOGIC DIAGRAM -->
+  <div class="card" style="padding:0;overflow:hidden;margin-bottom:14px;">
+    <div style="padding:11px 16px;background:var(--sur2);border-bottom:1px solid var(--bdr);font-family:var(--mn);font-size:10px;color:var(--mu);letter-spacing:.09em;text-transform:uppercase;">A/B swap logic — 1 campaign · 50/50 internal split · max 4 campaigns per user</div>
+    <div style="padding:16px;">
+      <style>
+      .abs{font-family:var(--fn);font-size:12px;color:var(--tx)}
+      .atrow{display:flex;gap:0;margin-bottom:0}
+      .atlbl{font-family:var(--mn);font-size:11px;color:var(--mu);width:74px;padding-right:9px;padding-top:10px;text-align:right;border-right:2px solid var(--bdr);flex-shrink:0}
+      .atlbl span{display:block;font-size:9px;opacity:.6;margin-top:1px}
+      .atcon{flex:1;padding:6px 0 8px 11px}
+      .acamp{border:0.5px solid var(--bdr);border-radius:6px;padding:8px 10px;background:var(--sur2)}
+      .asplit{display:flex;border:0.5px solid var(--bdr);border-radius:6px;overflow:hidden;margin-bottom:7px}
+      .aha{flex:1;padding:6px 8px;background:#E6F1FB;border-right:0.5px solid #85B7EB}
+      .ahb{flex:1;padding:6px 8px;background:#FCEBEB}
+      .ahtag{font-family:var(--mn);font-size:10px;font-weight:500;margin-bottom:1px}
+      .aha .ahtag{color:#0C447C}.ahb .ahtag{color:#501313}
+      .ahmsg{font-size:11px;color:var(--mu)}
+      .aswa{flex:1;padding:6px 8px;background:#FCEBEB;border-right:0.5px solid #F09595}
+      .aswb{flex:1;padding:6px 8px;background:#E6F1FB}
+      .aswlbl{display:flex;align-items:center;justify-content:center;padding:0 7px;font-size:13px;color:var(--mu);background:var(--sur2)}
+      .aswa .ahtag{color:#501313}.aswb .ahtag{color:#0C447C}
+      .argrid{display:grid;gap:4px}
+      .argrid3{grid-template-columns:1fr 1fr 1fr}
+      .argrid2{grid-template-columns:1fr 1fr}
+      .art{border-radius:5px;padding:6px 9px;border:0.5px solid;display:flex;flex-direction:column;gap:1px}
+      .arg{background:var(--gl);border-color:var(--gc)}.arb{background:var(--bl);border-color:var(--bc)}.arr{background:var(--rl);border-color:var(--rc)}
+      .art-cond{font-size:10px;font-family:var(--mn);font-weight:500}
+      .arg .art-cond{color:var(--g)}.arb .art-cond{color:var(--b)}.arr .art-cond{color:var(--r)}
+      .art-dest{font-size:11px;font-weight:500}
+      .arg .art-dest{color:var(--g)}.arb .art-dest{color:var(--b)}.arr .art-dest{color:var(--r)}
+      .art-note{font-size:10px;opacity:.7}
+      .arg .art-note{color:var(--g)}.arb .art-note{color:var(--b)}.arr .art-note{color:var(--r)}
+      .aconn{display:flex;align-items:center;padding:2px 0 2px 86px;gap:5px}
+      .acl{width:1px;height:13px;background:var(--bdr)}.act{font-size:10px;color:var(--mu);font-family:var(--mn)}
+      .ash{font-family:var(--mn);font-size:10px;text-transform:uppercase;letter-spacing:.09em;color:var(--mu);padding:5px 0 4px 86px;border-top:1px solid var(--bdr);margin-top:5px}
+      .anote{padding:7px 10px;background:var(--sur2);border-radius:6px;font-size:11px;color:var(--mu);border-left:2px solid var(--bc);margin-top:8px}
+      .anote-t{font-weight:500;color:var(--b);margin-bottom:2px}
+      </style>
+      <div class="abs">
+        <div class="ash" style="border-top:none;padding-top:0;margin-top:0">Tier 1 — 0–4 adview · max 2 campaigns</div>
+        <div class="atrow">
+          <div class="atlbl">Camp 1<span>Day ~1</span></div>
+          <div class="atcon">
+            <div class="acamp">
+              <div class="asplit">
+                <div class="aha"><div class="ahtag">Group A · 50%</div><div class="ahmsg">Angle 1 (e.g. inventory discovery)</div></div>
+                <div class="ahb"><div class="ahtag">Group B · 50%</div><div class="ahmsg">Angle 2 (e.g. social proof)</div></div>
+              </div>
+              <div class="argrid argrid3">
+                <div class="art arg"><div class="art-cond">If ≥20 adview</div><div class="art-dest">Exit → Week 2</div><div class="art-note">Group B or C</div></div>
+                <div class="art arb"><div class="art-cond">If 5–19 adview</div><div class="art-dest">Advance → Tier 2</div><div class="art-note">Continue below</div></div>
+                <div class="art arr"><div class="art-cond">If still 0–4</div><div class="art-dest">→ Camp 2</div><div class="art-note">Swap A ↔ B</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="aconn"><div class="acl"></div><div class="act">if still 0–4 adview</div></div>
+        <div class="atrow" style="margin-bottom:5px">
+          <div class="atlbl">Camp 2<span>Swap</span></div>
+          <div class="atcon">
+            <div class="acamp">
+              <div class="asplit">
+                <div class="aswa"><div class="ahtag">Group A → Angle 2</div><div class="ahmsg">Receives B's original message</div></div>
+                <div class="aswlbl">⇄</div>
+                <div class="aswb"><div class="ahtag">Group B → Angle 1</div><div class="ahmsg">Receives A's original message</div></div>
+              </div>
+              <div class="argrid argrid2">
+                <div class="art arg"><div class="art-cond">If ≥20 adview</div><div class="art-dest">Exit → Week 2</div><div class="art-note">Group B or C</div></div>
+                <div class="art arr"><div class="art-cond">If still &lt;20</div><div class="art-dest">STOP → Week 2 Grp A</div><div class="art-note">Item-level targeted msg</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ash">Tier 2 — 5–19 adview · same swap logic</div>
+        <div class="atrow">
+          <div class="atlbl">Camp 3<span>Day ~3–4</span></div>
+          <div class="atcon">
+            <div class="acamp">
+              <div class="asplit">
+                <div class="aha"><div class="ahtag">Group C · 50%</div><div class="ahmsg">Sub-category · new inventory angle</div></div>
+                <div class="ahb"><div class="ahtag">Group D · 50%</div><div class="ahmsg">Sub-category · urgency angle</div></div>
+              </div>
+              <div class="argrid argrid2">
+                <div class="art arg"><div class="art-cond">If ≥20 adview</div><div class="art-dest">Exit → Week 2</div><div class="art-note">Group B or C</div></div>
+                <div class="art arr"><div class="art-cond">If still &lt;20</div><div class="art-dest">→ Camp 4</div><div class="art-note">Swap C ↔ D</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="aconn"><div class="acl"></div><div class="act">if still &lt;20 adview</div></div>
+        <div class="atrow" style="margin-bottom:6px">
+          <div class="atlbl">Camp 4<span>Swap</span></div>
+          <div class="atcon">
+            <div class="acamp">
+              <div class="asplit">
+                <div class="aswa"><div class="ahtag">Group C → urgency angle</div></div>
+                <div class="aswlbl">⇄</div>
+                <div class="aswb"><div class="ahtag">Group D → inventory angle</div></div>
+              </div>
+              <div class="argrid argrid2">
+                <div class="art arg"><div class="art-cond">If ≥20 adview</div><div class="art-dest">Exit → Week 2</div><div class="art-note">Group B or C</div></div>
+                <div class="art arr"><div class="art-cond">If still &lt;20</div><div class="art-dest">STOP → Week 2 Grp A</div><div class="art-note">Item-level targeted msg</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="anote"><div class="anote-t">Max 4 campaigns per user in D1–D7</div>User exits at any point when hitting 20 adview. User reaching Week 2 Group A (never hit 20) receives item-level targeting — not inventory push — because they've already seen 4 messages and didn't browse broadly.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- D-DAY SEQUENCING -->
+<div class="sec">
+  <div class="sh"><span class="sl">D-day Sequencing Principle</span><div class="sline"></div></div>
+
+  <div class="al r" style="margin-bottom:16px;">
+    <div class="al-t">Blind spot hiện tại cần audit ngay</div>
+    <p>Chưa có thống kê tỉ lệ campaigns đang chạy như sequence (D1 → D3 → D7) vs. chạy độc lập. Nếu campaigns fire độc lập, user có thể nhận 3 push cùng ngày D1 từ 3 campaigns khác nhau, rồi không nhận gì ở D3-D6. Đây là waste hoàn toàn của 3-push/day cap.</p>
+  </div>
+
+  <!-- D-DAY TIMELINE VISUAL -->
+  <div class="card" style="padding:0;overflow:hidden;margin-bottom:14px;">
+    <div style="padding:11px 16px;background:var(--sur2);border-bottom:1px solid var(--bdr);font-family:var(--mn);font-size:10px;color:var(--mu);letter-spacing:.09em;text-transform:uppercase;">D-day timeline per user — campaigns fire in install-relative order, not calendar order</div>
+    <div style="padding:16px 20px;overflow-x:auto;">
+      <style>
+      .tl{display:flex;align-items:flex-start;gap:0;min-width:540px;position:relative}
+      .tl::before{content:'';position:absolute;top:18px;left:24px;right:24px;height:1px;background:var(--bdr);z-index:0}
+      .tday{display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;position:relative;z-index:1}
+      .tday-dot{width:10px;height:10px;border-radius:50%;border:2px solid var(--bdr);background:var(--sur);flex-shrink:0}
+      .tday-dot.act{background:var(--b);border-color:var(--b)}
+      .tday-dot.key{background:var(--g);border-color:var(--g)}
+      .tday-dot.swap{background:var(--y);border-color:var(--y)}
+      .tday-dot.end{background:var(--p);border-color:var(--p)}
+      .tday-dot.install{background:var(--tx);border-color:var(--tx)}
+      .tday-lbl{font-family:var(--mn);font-size:10px;font-weight:500;color:var(--mu)}
+      .tday-card{background:var(--sur2);border:0.5px solid var(--bdr);border-radius:5px;padding:5px 7px;text-align:center;min-width:68px}
+      .tday-card.tc-b{background:var(--bl);border-color:var(--bc)}
+      .tday-card.tc-y{background:var(--yl);border-color:var(--yc)}
+      .tday-card.tc-g{background:var(--gl);border-color:var(--gc)}
+      .tday-card.tc-p{background:var(--pl);border-color:var(--pc)}
+      .tday-card.tc-k{background:var(--sur2);border-color:var(--bdr)}
+      .tct{font-size:10px;font-weight:500;line-height:1.3}
+      .tc-b .tct{color:var(--b)}.tc-y .tct{color:var(--y)}.tc-g .tct{color:var(--g)}.tc-p .tct{color:var(--p)}.tc-k .tct{color:var(--mu)}
+      .tcs{font-size:9px;color:var(--mu);margin-top:2px;line-height:1.3}
+      .tl-legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;font-size:11px}
+      .tl-li{display:flex;align-items:center;gap:5px}
+      .tl-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+      </style>
+      <div class="tl">
+        <div class="tday">
+          <div class="tday-lbl">D0</div>
+          <div class="tday-dot install"></div>
+          <div class="tday-card tc-k"><div class="tct">Install</div><div class="tcs">Onboarding flow shown</div></div>
+        </div>
+        <div class="tday">
+          <div class="tday-lbl">D1</div>
+          <div class="tday-dot act"></div>
+          <div class="tday-card tc-b"><div class="tct">Camp 1</div><div class="tcs">Tier 1 · A/B 50/50</div></div>
+        </div>
+        <div class="tday">
+          <div class="tday-lbl">D2</div>
+          <div class="tday-dot"></div>
+          <div class="tday-card tc-k"><div class="tct">Rest</div><div class="tcs">Observe behavior</div></div>
+        </div>
+        <div class="tday">
+          <div class="tday-lbl">D3</div>
+          <div class="tday-dot swap"></div>
+          <div class="tday-card tc-y"><div class="tct">Camp 2</div><div class="tcs">Tier 1 swap<br>if still 0–4</div></div>
+        </div>
+        <div class="tday">
+          <div class="tday-lbl">D4</div>
+          <div class="tday-dot act"></div>
+          <div class="tday-card tc-b"><div class="tct">Camp 3</div><div class="tcs">Tier 2 · A/B<br>if 5–19</div></div>
+        </div>
+        <div class="tday">
+          <div class="tday-lbl">D5</div>
+          <div class="tday-dot"></div>
+          <div class="tday-card tc-k"><div class="tct">Rest</div><div class="tcs">Observe behavior</div></div>
+        </div>
+        <div class="tday">
+          <div class="tday-lbl">D6</div>
+          <div class="tday-dot swap"></div>
+          <div class="tday-card tc-y"><div class="tct">Camp 4</div><div class="tcs">Tier 2 swap<br>if still &lt;20</div></div>
+        </div>
+        <div class="tday">
+          <div class="tday-lbl">D7</div>
+          <div class="tday-dot end"></div>
+          <div class="tday-card tc-p"><div class="tct">Check</div><div class="tcs">Exit to<br>Week 2</div></div>
+        </div>
+      </div>
+      <div class="tl-legend">
+        <div class="tl-li"><div class="tl-dot" style="background:var(--b)"></div>Campaign send</div>
+        <div class="tl-li"><div class="tl-dot" style="background:var(--y)"></div>Swap campaign</div>
+        <div class="tl-li"><div class="tl-dot" style="background:var(--p)"></div>Exit/checkpoint</div>
+        <div class="tl-li"><div class="tl-dot" style="background:var(--bdr);border:1px solid var(--bdr)"></div>Observation day (no push)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3 SEQUENCING RULES -->
+  <div class="g3" style="margin-bottom:14px;">
+    <div class="card lg" style="margin-bottom:0;padding:16px;">
+      <div class="ct" style="font-size:13px;">Rule 1 — D-day order, not calendar</div>
+      <div class="cs">Camp 2 fires on User's D3 (3 days after their install), not on calendar day 3. 2 users installing on different dates each get their own sequence.</div>
+      <div style="font-size:12px;color:var(--mu);background:var(--sur2);border-radius:4px;padding:8px 10px;margin-top:8px;font-style:italic">"User A installs Monday → D1=Tue, D3=Thu. User B installs Wednesday → D1=Thu, D3=Sat."</div>
+    </div>
+    <div class="card lb" style="margin-bottom:0;padding:16px;">
+      <div class="ct" style="font-size:13px;">Rule 2 — Camp 2 is conditional</div>
+      <div class="cs">Camp 2 (swap) only fires if user hasn't reached 20 adview AND still in the 0–4 tier after Camp 1. Segment = "received Camp 1 + not activated + 0–4 adview."</div>
+      <div style="font-size:12px;color:var(--mu);background:var(--sur2);border-radius:4px;padding:8px 10px;margin-top:8px;font-style:italic">"Activated after Camp 1? Skip Camp 2, exit to Week 2 immediately."</div>
+    </div>
+    <div class="card lp" style="margin-bottom:0;padding:16px;">
+      <div class="ct" style="font-size:13px;">Rule 3 — Max 1 activation push/day</div>
+      <div class="cs">With global cap = 3 push/day: activation camp = slot 1 (highest priority D7 window). Slot 2 = engagement camp. Slot 3 = vertical/system camp. Never 2 activation camps same day.</div>
+      <div style="font-size:12px;color:var(--mu);background:var(--sur2);border-radius:4px;padding:8px 10px;margin-top:8px;font-style:italic">"3 push/day cap phân bổ: 1 activation + 1 engagement + 1 system."</div>
+    </div>
+  </div>
+
+  <!-- IMPLEMENTATION NOTE -->
+  <div class="al b" style="margin-bottom:0;">
+    <div class="al-t">Implementation in OnFlow — 2 options</div>
+    <p><strong>Option A (preferred): Canvas/Journey</strong> — Build 1 Braze Canvas per branch (YES/NO), steps trigger by D-day delay. Tự động handle conditional logic. Cần confirm với Đạt về Canvas availability.<br><strong>Option B: UCDP sequential segments</strong> — Create date-relative segments: "install_d1_not_activated", "install_d3_tier1_not_activated". Flexible hơn nhưng manual hơn để maintain. Intern can own segment refresh daily.</p>
+  </div>
+</div>
+
+<hr>
+
+<!-- PILLAR 1: OPERATIONS -->
+<div class="sec">
+  <div class="sh"><span class="sl">Pillar 1 · Operations</span><div class="sline"></div></div>
+  <div class="al b" style="margin-bottom:20px;"><div class="al-t">Objective</div><p>Tăng khả năng reach &amp; scale của các campaigns tiềm năng bằng cách cắt/giảm campaigns không hiệu quả đang chiếm frequency cap và pool.</p></div>
+
+  <div class="sh"><span class="sl" style="font-size:10px">Step 1 · Kill Criteria</span><div class="sline"></div></div>
+  <div class="kbox">
+    <div class="kbt">Campaign Kill Criteria — tắt ngay, không exception</div>
+    <div class="kr">0-click: Total direct open = 0 trong 7 ngày gần nhất (không phải mới tạo trong 48h)</div>
+    <div class="kr">Micro pool + low CTR: Pool &lt; 10,000 users <strong>VÀ</strong> CTR &lt; 5%</div>
+    <div class="kr">Ghost: Active nhưng không có bất kỳ delivery data nào (845 campaigns hiện tại)</div>
+    <div class="kr">Expired once: "Once" campaigns đã gửi xong, không có end-date → tắt + archive</div>
+    <div class="kr">Stale &gt;1yr: Campaign tạo &gt;12 tháng không được review → flag, creator có 7 ngày để confirm hoặc tắt</div>
+  </div>
+
+  <div class="sh"><span class="sl" style="font-size:10px">Step 2 · Grouping — D7 (Activation) vs D7+ (Engagement)</span><div class="sline"></div></div>
+  <div class="g2" style="margin-bottom:16px;">
+    <div class="card lb" style="margin-bottom:0"><div class="ct">🔵 Activation Pool — D0 to D7</div><div class="cs">New app users trong 7 ngày đầu sau install</div>
+      <ul class="ck"><li><strong>Goal:</strong> DAU with ≥20 adviews</li><li><strong>Pool:</strong> Time-boxed, finite, renewed daily</li><li><strong>Current rate:</strong> 27.8% đạt ≥20 adview D7</li><li><strong>Re-eligibility:</strong> Controlled within D-day sequence</li></ul>
+    </div>
+    <div class="card lp" style="margin-bottom:0"><div class="ct">🟣 Engagement Pool — D7+</div><div class="cs">Tất cả users sau ngày thứ 7</div>
+      <ul class="ck"><li><strong>Goal:</strong> DAU with ≥1 lead</li><li><strong>Pool:</strong> Ongoing, large, stable</li><li><strong>Re-eligibility:</strong> KHÔNG cho promo camps</li><li><strong>Main problem:</strong> Re-elig fatigue + segment staleness</li></ul>
+    </div>
+  </div>
+
+  <div class="sh"><span class="sl" style="font-size:10px">Step 3 · Campaign Scoring Matrix</span><div class="sline"></div></div>
+  <div class="card" style="padding:0;overflow:hidden;margin-bottom:14px;">
+    <table class="stable">
+      <thead><tr><th>Dimension</th><th>3 pts</th><th>2 pts</th><th>1 pt</th><th>0 pts → Kill signal</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Pool size</strong></td><td>&gt;100K</td><td>10K–100K</td><td>1K–10K</td><td style="color:var(--r)">&lt;1K → Kill</td></tr>
+        <tr><td><strong>CTR</strong></td><td>&gt;5%</td><td>2–5%</td><td>0.5–2%</td><td style="color:var(--r)">0-click → Kill</td></tr>
+        <tr><td><strong>Re-eligibility</strong></td><td>OFF</td><td>ON + weekly/monthly cap</td><td>ON + daily cap</td><td style="color:var(--r)">ON + no cap → Kill</td></tr>
+        <tr><td><strong>Trigger type</strong></td><td>Behavior event</td><td>Session start</td><td>Scheduled</td><td style="color:var(--mu)">—</td></tr>
+        <tr><td><strong>Personalization</strong></td><td>Location + Category</td><td>Location OR Category</td><td>Segment mass</td><td style="color:var(--r)">Generic mass → Revamp</td></tr>
+        <tr><td><strong>Message angle tag</strong></td><td>Fresh angle this week</td><td>Rotated (2–4 days)</td><td>Same angle repeated</td><td style="color:var(--r)">Duplicate angle → Revamp</td></tr>
+        <tr><td><strong>Content age</strong></td><td>&lt;3 months</td><td>3–6 months</td><td>6–12 months</td><td style="color:var(--r)">&gt;12 months → Mandatory review</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="tg4">
+    <div class="tc tc-a"><div class="tc-lbl">PRIORITY A — Keep &amp; Optimize</div><div class="tc-score">15–21 pts</div><div class="tc-act">Monitor weekly, A/B test, scale pool</div></div>
+    <div class="tc tc-b"><div class="tc-lbl">PRIORITY B — Keep &amp; Refresh</div><div class="tc-score">9–14 pts</div><div class="tc-act">Refresh content, flip re-elig OFF, add angle tag</div></div>
+    <div class="tc tc-c"><div class="tc-lbl">PRIORITY C — Review or Kill</div><div class="tc-score">4–8 pts</div><div class="tc-act">Creator justify trong 7 ngày hoặc tắt</div></div>
+    <div class="tc tc-d"><div class="tc-lbl">KILL LIST</div><div class="tc-score">0–3 pts</div><div class="tc-act">Tắt ngay. Archive. No exception.</div></div>
+  </div>
+</div>
+
+<hr>
+
+<!-- PILLAR 2: RELEVANT CONTENT -->
+<div class="sec">
+  <div class="sh"><span class="sl">Pillar 2 · Relevant Content</span><div class="sline"></div></div>
+  <div class="al b" style="margin-bottom:20px;"><div class="al-t">Objective</div><p>Relevant message = <strong>location + category + action</strong>. Mỗi user group có JTBD khác nhau. Tăng độ hấp dẫn: trendy hơn, catchy hơn, gợi đòn hơn, trẻ trung hơn.</p></div>
+
+  <!-- MESSAGE FRESHNESS (moved here) -->
+  <div class="sh"><span class="sl" style="font-size:10px">Message Freshness — Trong 1 tuần user không nhận cùng angle 2 lần</span><div class="sline"></div></div>
+  <div class="al r" style="margin-bottom:12px;"><div class="al-t">Vấn đề đang xảy ra</div><p>Campaign A gửi D1 user không engage → campaign B gửi D3 cùng user với <strong>nội dung y chang</strong>. User mark spam hoặc disable notification. Automation không có nghĩa là copy-paste cùng message vào nhiều campaign.</p></div>
+
+  <div class="g2" style="margin-bottom:14px;">
+    <div style="display:flex;flex-direction:column;gap:7px;">
+      <div class="mc"><div class="mc-l"><span class="angle-pill ap-1">Angle 1 · Discovery</span></div><div class="mc-t">"Có {{count}} listing {{category}} mới gần {{location}} hôm nay — khám phá ngay!"</div><div class="mc-n">Dùng: lần đầu trong tuần hoặc sau 3+ ngày inactive</div></div>
+      <div class="mc"><div class="mc-l"><span class="angle-pill ap-2">Angle 2 · Urgency / Scarcity</span></div><div class="mc-t">"Listing {{category}} bạn xem hôm qua vừa có người hỏi — nhanh tay trước khi hết!"</div><div class="mc-n">Dùng: sau khi user xem listing nhưng không engage</div></div>
+      <div class="mc"><div class="mc-l"><span class="angle-pill ap-3">Angle 3 · Social Proof</span></div><div class="mc-t">"{{count}} người ở {{location}} đã liên hệ người bán {{category}} tuần này"</div><div class="mc-n">Dùng: khi user cần confirmation rằng đây là hành động bình thường</div></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:7px;">
+      <div class="mc"><div class="mc-l"><span class="angle-pill ap-4">Angle 4 · New Inventory</span></div><div class="mc-t">"Vừa có {{count}} {{subcategory}} mới đăng gần bạn — giá từ {{price_range}}"</div><div class="mc-n">Dùng: khi có batch listing mới trong category user quan tâm</div></div>
+      <div class="mc"><div class="mc-l"><span class="angle-pill ap-5">Angle 5 · Re-engagement</span></div><div class="mc-t">"Lâu rồi không thấy bạn — {{category}} ở {{location}} đang có nhiều thứ hay lắm đó!"</div><div class="mc-n">Dùng: sau 5+ ngày không có session</div></div>
+    </div>
+  </div>
+
+  <div class="sh"><span class="sl" style="font-size:10px">Weekly Rotation Rule</span><div class="sline"></div></div>
+  <div style="background:var(--sur);border:1px solid var(--bdr);border-radius:8px;overflow:hidden;margin-bottom:20px;">
+    <table class="frtable">
+      <thead><tr><th>Day</th><th>Trigger condition</th><th>Angle</th><th>Message example</th><th>If no engage →</th></tr></thead>
+      <tbody>
+        <tr><td style="font-family:var(--mn);font-weight:500">D1</td><td style="font-size:12px;color:var(--mu)">First session</td><td><span class="angle-pill ap-1">Discovery</span></td><td style="font-size:12px;font-style:italic">"47 xe máy mới gần Quận 7 hôm nay"</td><td style="font-size:12px;color:var(--mu)">Move to D3</td></tr>
+        <tr><td style="font-family:var(--mn);font-weight:500">D3</td><td style="font-size:12px;color:var(--mu)">No engage in 2 days</td><td><span class="angle-pill ap-3">Social Proof</span></td><td style="font-size:12px;font-style:italic">"120 người ở Q7 chat hỏi xe tuần này"</td><td style="font-size:12px;color:var(--mu)">Move to D5</td></tr>
+        <tr><td style="font-family:var(--mn);font-weight:500">D5</td><td style="font-size:12px;color:var(--mu)">Still no engage</td><td><span class="angle-pill ap-4">New Inventory</span></td><td style="font-size:12px;font-style:italic">"12 xe SH mới vừa đăng, giá từ 60tr"</td><td style="font-size:12px;color:var(--mu)">Move to D7</td></tr>
+        <tr><td style="font-family:var(--mn);font-weight:500">D7</td><td style="font-size:12px;color:var(--mu)">End of window</td><td><span class="angle-pill ap-2">Urgency</span></td><td style="font-size:12px;font-style:italic">"Listing xe bạn xem có người hỏi — chat ngay!"</td><td style="font-size:12px;color:var(--mu)">Week 2 Group A</td></tr>
+      </tbody>
+    </table>
+    <div style="padding:9px 14px;background:var(--sur2);font-size:11px;color:var(--mu);border-top:1px solid var(--bdr);"><strong style="color:var(--b);">Enforcement:</strong> Tag mỗi campaign với 1 trong 5 angles. Rule trong Braze: cùng 1 user không nhận 2 messages cùng angle tag từ cùng pool trong 7 ngày.</div>
+  </div>
+
+  <!-- 4 USER GROUPS -->
+  <div class="sh"><span class="sl" style="font-size:10px">4 User Groups</span><div class="sline"></div></div>
+  <div class="g2" style="margin-bottom:14px;">
+    <div class="ugcard"><div class="ugh" style="background:var(--bl);border-color:var(--bc)"><div><div class="ugh-t">Group 1 — D7 · &lt;20 adview · 0 lead</div><div class="ugh-s" style="color:var(--b)">NEW · NOT ACTIVATED · NO LEAD</div></div><span class="pill b">Activation</span></div>
+      <div class="ugb"><div class="ugattr">New user D7, chưa đạt 20 adview, chưa lead. Follow freshness protocol — khác angle mỗi message.</div>
+        <div class="ugst">Messages (rotate angles)</div>
+        <div class="mc"><div class="mc-l"><span class="angle-pill ap-1">Discovery</span></div><div class="mc-t">"Có {{count}} {{category}} gần {{location}} đang hot — xem thử trước khi hết!"</div></div>
+        <div class="mc"><div class="mc-l"><span class="angle-pill ap-3">Social Proof</span></div><div class="mc-t">"{{count}} người ở {{location}} vừa tìm {{category}} hôm nay — bạn thì sao?"</div></div>
+      </div>
+    </div>
+    <div class="ugcard"><div class="ugh" style="background:var(--gl);border-color:var(--gc)"><div><div class="ugh-t">Group 2 — D7 · &lt;20 adview · ≥1 lead</div><div class="ugh-s" style="color:var(--g)">NEW · NOT ACTIVATED · HAS LEAD</div></div><span class="pill g">Advanced</span></div>
+      <div class="ugb"><div class="ugattr">High-intent user: đã make lead D7 nhưng chưa đủ adview. Likely mission-driven buyers.</div>
+        <div class="ugst">Messages</div>
+        <div class="mc"><div class="mc-l"><span class="angle-pill ap-4">New Inventory</span></div><div class="mc-t">"Ngoài {{lead_category}} bạn đang xem, có {{count}} listing tương tự mới hơn"</div></div>
+        <div class="mc"><div class="mc-l"><span class="angle-pill ap-2">Urgency</span></div><div class="mc-t">"Người bán {{lead_category}} bạn đã chat vẫn đang online — hỏi thêm ngay!"</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="g2" style="margin-bottom:20px;">
+    <div class="ugcard"><div class="ugh" style="background:var(--pl);border-color:var(--pc)"><div><div class="ugh-t">Group 3 — D7+ · ≥20 adview · 0 lead</div><div class="ugh-s" style="color:var(--p)">EXISTING · ACTIVATED · NO LEAD</div></div><span class="pill p">Conversion</span></div>
+      <div class="ugb"><div class="ugattr">Browsing habit có nhưng chưa convert. Barrier: chưa thấy listing đủ compelling, friction khi liên hệ, hoặc chưa có urgency.</div>
+        <div class="ugst">Messages</div>
+        <div class="mc"><div class="mc-l"><span class="angle-pill ap-2">Urgency</span></div><div class="mc-t">"{{listing_title}} bạn xem hôm qua vừa có người hỏi — chat ngay trước khi hết! 🔥"</div></div>
+        <div class="mc"><div class="mc-l">Lower friction</div><div class="mc-t">"Chat với chủ {{category}} chỉ 1 tap, miễn phí. Thử hỏi giá ngay nhé"</div></div>
+      </div>
+    </div>
+    <div class="ugcard"><div class="ugh" style="background:var(--yl);border-color:var(--yc)"><div><div class="ugh-t">Group 4 — D7+ · ≥20 adview · ≥1 lead</div><div class="ugh-s" style="color:var(--y)">EXISTING · ACTIVATED · HAS LEAD</div></div><span class="pill y">Retention</span></div>
+      <div class="ugb"><div class="ugattr">Best users. Proven intent. Cần: giữ habit quay lại, surface new inventory, cross-sell. Frequency cap nghiêm ngặt.</div>
+        <div class="ugst">Messages</div>
+        <div class="mc"><div class="mc-l">Saved search</div><div class="mc-t">"Có {{count}} {{category}} mới tại {{location}} từ lần bạn tìm kiếm cuối — ghé xem!"</div></div>
+        <div class="mc"><div class="mc-l">Cross-sell</div><div class="mc-t">"Ngoài {{primary_cate}} bạn hay tìm, {{adj_cate}} gần {{location}} đang có nhiều tin hot"</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ENGAGEMENT FLOW -->
+  <div class="sh"><span class="sl" style="font-size:10px">Engagement Pool — D7+ Message Framework</span><div class="sline"></div></div>
+  <div class="engc"><div class="engh" style="background:var(--pl)"><div><div class="engh-t">Group 3: ≥20 adview · 0 lead → Convert first lead</div><span class="pill p">D7+ · Conversion focus</span></div></div>
+    <div class="engb"><div class="engi">User này có browsing habit nhưng chưa convert. Barrier: chưa thấy listing đủ compelling, friction khi liên hệ, hoặc chưa có urgency. Strategy: Reduce friction + create urgency + surface relevant inventory.</div>
+      <div class="me3">
+        <div class="mex">"Listing {{category}} bạn hay xem vừa có người hỏi — chat ngay trước khi hết! 🔥"</div>
+        <div class="mex">"Chat với người bán chỉ 1 tap, miễn phí. Thử hỏi giá {{category}} gần {{location}} nhé"</div>
+        <div class="mex">"{{count}} listing {{category}} mới đăng gần {{location}} từ lần bạn truy cập cuối"</div>
+      </div>
+    </div>
+  </div>
+  <div class="engc"><div class="engh" style="background:var(--yl)"><div><div class="engh-t">Group 4: ≥20 adview · ≥1 lead → Repeat lead + retention</div><span class="pill y">D7+ · Retention focus</span></div></div>
+    <div class="engb"><div class="engi">Best users. Proven intent. Cần: giữ habit quay lại, surface new inventory, cross-sell adjacent categories. Frequency cap nghiêm ngặt — đừng spam users tốt nhất.</div>
+      <div class="me3">
+        <div class="mex">"Có {{count}} {{category}} mới tại {{location}} từ lần bạn tìm kiếm cuối"</div>
+        <div class="mex">"Tin bạn đã lưu vừa có {{count}} listing tương tự, giá từ {{price_range}}"</div>
+        <div class="mex">"Ngoài {{primary_cate}} bạn hay tìm, {{adj_cate}} gần {{location}} đang hot"</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end panel new -->
+
+<!-- TAB 3: EXECUTION ROADMAP -->
+<div id="pr" class="panel">
+
+<div class="sec">
+  <div class="sh"><span class="sl">Target KPI — Q3 2026</span><div class="sline"></div></div>
+  <div class="card" style="padding:0;overflow:hidden;margin-bottom:16px;">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--bdr);">
+      <div style="background:var(--sur);padding:18px 16px;"><div class="slbl">Current (mean)</div><div class="sval r">2.6%</div><div class="ssub">Per-campaign direct open</div></div>
+      <div style="background:var(--sur);padding:18px 16px;"><div class="slbl">Current (median)</div><div class="sval r">1.2%</div><div class="ssub">Long tail dragging down</div></div>
+      <div style="background:#f4fbf7;padding:18px 16px;"><div class="slbl">Q3 2026 Target</div><div class="sval g">8%</div><div class="ssub">Direct open rate (mean)</div></div>
+      <div style="background:var(--sur);padding:18px 16px;"><div class="slbl">Uplift required</div><div class="sval b">3×</div><div class="ssub">vs. current mean in 12 weeks</div></div>
+    </div>
+    <div style="padding:12px 16px;background:var(--sur);border-top:1px solid var(--bdr);">
+      <div class="slbl" style="margin-bottom:8px;">Contribution breakdown (estimated)</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+        <span style="background:var(--gl);color:var(--g);border:0.5px solid var(--gc);border-radius:4px;padding:3px 9px;font-size:11px;font-family:var(--mn);">Re-elig OFF → +1.5pp</span>
+        <span style="background:var(--gl);color:var(--g);border:0.5px solid var(--gc);border-radius:4px;padding:3px 9px;font-size:11px;font-family:var(--mn);">Content freshness → +1.5pp</span>
+        <span style="background:var(--bl);color:var(--b);border:0.5px solid var(--bc);border-radius:4px;padding:3px 9px;font-size:11px;font-family:var(--mn);">D-day sequencing → +1pp</span>
+        <span style="background:var(--bl);color:var(--b);border:0.5px solid var(--bc);border-radius:4px;padding:3px 9px;font-size:11px;font-family:var(--mn);">Better angles → +1.5pp</span>
+        <span style="background:var(--sur2);color:var(--mu);border:0.5px solid var(--bdr);border-radius:4px;padding:3px 9px;font-size:11px;font-family:var(--mn);">Kill ghost noise → measurement cleanup</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sh"><span class="sl">Team &amp; Resources</span><div class="sline"></div></div>
+  <div class="g2" style="margin-bottom:16px;">
+    <div class="card lg" style="margin-bottom:0;">
+      <div class="ct">Track 2 Team — 1 Senior + 1 Intern</div>
+      <ul class="ck" style="margin-top:6px;">
+        <li><strong>Senior owns:</strong> scoring matrix, campaign charter, sequencing design, experiment design, weekly review, escalation</li>
+        <li><strong>Intern owns:</strong> kill cycle (monthly), D-day segment refresh (daily), tagging &amp; labeling, monitoring dashboard</li>
+        <li><strong>Time split:</strong> Senior 40% · Intern 80%</li>
+        <li><strong>Sync:</strong> Weekly 30-min review với Chi Pu — kill decisions + experiment results</li>
+      </ul>
+    </div>
+    <div class="card lb" style="margin-bottom:0;">
+      <div class="ct">Freq-cap 3/day — Priority Slot Allocation</div>
+      <div style="font-size:12px;color:var(--mu);margin-bottom:10px;">Cần assign priority slot rõ ràng để tránh activation camp bị đá bởi engagement camp hoặc system message.</div>
+      <div style="display:flex;flex-direction:column;gap:5px;">
+        <div style="background:var(--gl);border:0.5px solid var(--gc);border-radius:5px;padding:7px 10px;display:flex;justify-content:space-between;align-items:center;"><span style="font-size:12px;font-weight:500;color:var(--g);">Slot 1 — Activation</span><span style="font-family:var(--mn);font-size:10px;color:var(--g);">Highest priority · D7 window only</span></div>
+        <div style="background:var(--bl);border:0.5px solid var(--bc);border-radius:5px;padding:7px 10px;display:flex;justify-content:space-between;align-items:center;"><span style="font-size:12px;font-weight:500;color:var(--b);">Slot 2 — Engagement</span><span style="font-family:var(--mn);font-size:10px;color:var(--b);">D7+ users · lead-focused</span></div>
+        <div style="background:var(--sur2);border:0.5px solid var(--bdr);border-radius:5px;padding:7px 10px;display:flex;justify-content:space-between;align-items:center;"><span style="font-size:12px;font-weight:500;color:var(--mu);">Slot 3 — Vertical / System</span><span style="font-family:var(--mn);font-size:10px;color:var(--mu);">Cross-team campaigns</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sh"><span class="sl">16-Week Roadmap — week by week</span><div class="sline"></div></div>
+
+  <style>
+  /* WEEKLY ROADMAP TABLE */
+  .wrt{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:20px}
+  .wrt th{padding:9px 13px;text-align:left;font-family:var(--mn);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--mu);border-bottom:2px solid var(--bdr);background:var(--sur2)}
+  .wrt td{padding:10px 13px;border-bottom:1px solid rgba(226,224,216,.45);vertical-align:top}
+  .wrt tr:hover td{background:var(--bg)}
+  .phase-row td{padding:7px 13px;font-weight:700;font-size:11px;letter-spacing:.04em}
+  .ph0 td{background:rgba(214,59,47,.06);color:var(--r);border-bottom:none;border-top:2px solid var(--r)}
+  .ph1 td{background:rgba(199,123,0,.06);color:var(--y);border-bottom:none;border-top:2px solid var(--y)}
+  .ph2 td{background:rgba(37,99,235,.06);color:var(--b);border-bottom:none;border-top:2px solid var(--b)}
+  .ph3 td{background:rgba(22,134,74,.06);color:var(--g);border-bottom:none;border-top:2px solid var(--g)}
+  .wk{font-family:var(--mn);font-size:11px;font-weight:500;white-space:nowrap}
+  .task-list{list-style:none;margin:0;padding:0}
+  .task-list li{padding:2px 0;display:flex;gap:6px;color:var(--tx)}
+  .task-list li::before{content:'·';color:var(--bdr);flex-shrink:0;font-size:16px;line-height:1.1}
+  .task-list li strong{color:var(--tx)}
+  .outcome-box{background:var(--sur2);border-radius:4px;padding:7px 9px;font-size:11px}
+  .ob-metric{font-family:var(--mn);font-weight:500;margin-bottom:2px}
+  .ob-desc{color:var(--mu)}
+  .ctr-tag{display:inline-block;font-family:var(--mn);font-size:10px;padding:1px 7px;border-radius:3px;font-weight:500;margin-bottom:4px}
+  .ctr-r{background:var(--rl);color:var(--r)}.ctr-y{background:var(--yl);color:var(--y)}.ctr-b{background:var(--bl);color:var(--b)}.ctr-g{background:var(--gl);color:var(--g)}
+  .own{font-family:var(--mn);font-size:10px;padding:2px 6px;border-radius:3px;white-space:nowrap}
+  .own-s{background:var(--pl);color:var(--p)}.own-i{background:var(--sur2);color:var(--mu)}.own-b{background:var(--yl);color:var(--y)}
+  </style>
+
+  <table class="wrt">
+    <thead>
+      <tr><th style="width:70px">Week</th><th style="width:55px">Owner</th><th>Tasks</th><th style="width:200px">Expected outcome</th></tr>
+    </thead>
+    <tbody>
+
+      <!-- PHASE 0 -->
+      <tr class="phase-row ph0"><td colspan="4">PHASE 0 — Stop the Bleeding · Wk 1–3 · Starting point: 2.6% mean CTR</td></tr>
+
+      <tr>
+        <td><div class="wk">Week 1</div></td>
+        <td><span class="own own-b">Both</span></td>
+        <td><ul class="task-list">
+          <li><strong>Tắt 845 ghost campaigns</strong> ngay lập tức — không cần review, không cần confirm creator</li>
+          <li><strong>Flip re-eligibility=OFF</strong> cho toàn bộ promotional campaigns (trừ activation sequences)</li>
+          <li><strong>Spread time slot 20:30</strong>: giới hạn max 10 campaigns/time slot, redistribute sang 18:30, 19:00, 21:00</li>
+          <li><strong>Assign priority slots</strong>: Slot 1 = Activation, Slot 2 = Engagement, Slot 3 = Vertical</li>
+          <li><strong>Senior onboard</strong>: brief toàn bộ vertical teams về campaign charter sắp tới</li>
+        </ul></td>
+        <td><div class="outcome-box"><div class="ctr-tag ctr-y">CTR ~3.5%</div><div class="ob-metric">Pool freed up</div><div class="ob-desc">Ghost noise removed. Re-elig flip gives immediate CTR lift. Congestion cleared.</div></div></td>
+      </tr>
+
+      <tr>
+        <td><div class="wk">Week 2</div></td>
+        <td><span class="own own-s">Senior</span></td>
+        <td><ul class="task-list">
+          <li><strong>Campaign charter draft</strong>: mandatory fields (reviewer, end-date, pool min, angle tag, goal metric)</li>
+          <li><strong>Segment registry setup</strong>: Google Sheet mapping segment ↔ active campaigns ↔ owner</li>
+          <li><strong>Flag all campaigns &gt;1 year</strong>: gửi notification cho creators — 7 ngày để confirm hoặc bị tắt</li>
+          <li><strong>Mandatory end-dates</strong> cho toàn bộ "once" campaigns đã run xong</li>
+          <li><strong>Intern onboard</strong>: handover kill cycle SOP, daily monitoring checklist</li>
+        </ul></td>
+        <td><div class="outcome-box"><div class="ob-metric">Governance layer starts</div><div class="ob-desc">Charter draft ready. Registry live. 470 stale campaigns under 7-day review clock.</div></div></td>
+      </tr>
+
+      <tr>
+        <td><div class="wk">Week 3</div></td>
+        <td><span class="own own-b">Both</span></td>
+        <td><ul class="task-list">
+          <li><strong>Kill stale camps</strong>: execute tắt tất cả campaigns không được creator confirm trong 7 ngày</li>
+          <li><strong>Apply scoring matrix</strong> cho 481 delivering campaigns: tag Priority A / B / C / Kill</li>
+          <li><strong>Campaign charter published</strong> và communicated tới tất cả teams — mandatory từ tuần này</li>
+          <li><strong>Angle tagging</strong>: gắn 1 trong 5 angles cho tất cả Priority A &amp; B campaigns</li>
+          <li><strong>Intern</strong>: bắt đầu daily monitoring report (sent, CTR, new ghosts)</div></li>
+        </ul></td>
+        <td><div class="outcome-box"><div class="ctr-tag ctr-y">CTR ~4%</div><div class="ob-metric">Clean slate achieved</div><div class="ob-desc">Priority A/B/C classified. Charter enforced. Angle system live. Ghost rate ≈ 0%.</div></div></td>
+      </tr>
+
+      <!-- PHASE 1 -->
+      <tr class="phase-row ph1"><td colspan="4">PHASE 1 — Structure &amp; Sequence · Wk 4–7 · Build the activation machine</td></tr>
+
+      <tr>
+        <td><div class="wk">Week 4</div></td>
+        <td><span class="own own-s">Senior</span></td>
+        <td><ul class="task-list">
+          <li><strong>Confirm Canvas availability</strong> với Đạt: Canvas/Journey hay UCDP sequential segments?</li>
+          <li><strong>D-day sequence design</strong>: map out 4 campaigns (Camp1→Camp2→Camp3→Camp4) per branch (YES/NO)</li>
+          <li><strong>Segment definition</strong>: "new_user_install_d0_onboarding_yes" và "no" với exclusion logic</li>
+          <li><strong>Priority A creative refresh</strong>: brief nội dung mới với location + category personalization</li>
+          <li><strong>New campaign approval gate live</strong>: mọi campaign mới phải qua Growth MKT sign-off</li>
+        </ul></td>
+        <td><div class="outcome-box"><div class="ob-metric">Sequence blueprint ready</div><div class="ob-desc">Canvas decision confirmed. Segment definitions written. Approval gate enforced — no new camps without sign-off.</div></div></td>
+      </tr>
+
+      <tr>
+        <td><div class="wk">Week 5</div></td>
+        <td><span class="own own-b">Both</span></td>
+        <td><ul class="task-list">
+          <li><strong>Build &amp; launch Tier 1 — YES branch</strong>: Camp 1 (50/50 A/B) + Camp 2 (swap), D1 và D3</li>
+          <li>Segment: new users who completed onboarding, 0–4 adview, install within last 7 days</li>
+          <li><strong>Test với cohort nhỏ</strong>: mới install tuần này (~500–1,000 users), monitor daily</li>
+          <li><strong>Intern</strong>: setup tracking dashboard cho D-day sequence (sent, open, adview progress per user)</li>
+          <li>Creative: location + category message từ onboarding data (Angle 1: Discovery)</li>
+        </ul></td>
+        <td><div class="outcome-box"><div class="ob-metric">First sequence live</div><div class="ob-desc">YES/Tier1 running on first cohort. Baseline D-day open rate measured for first time.</div></div></td>
+      </tr>
+
+      <tr>
+        <td><div class="wk">Week 6</div></td>
+        <td><span class="own own-b">Both</span></td>
+        <td><ul class="task-list">
+          <li><strong>Build &amp; launch Tier 1 — NO branch</strong>: Camp 1 (generic discovery A/B) + Camp 2 (swap), D1 và D3</li>
+          <li>Segment: new users who skipped onboarding, 0–4 adview</li>
+          <li><strong>Tier 2 design cho cả 2 branches</strong>: Camp 3 + Camp 4, fire D4 và D6 cho users 5–19 adview</li>
+          <li><strong>Review week 5 results</strong>: A hay B winning? Angle nào perform tốt hơn?</li>
+          <li><strong>Intern</strong>: daily segment refresh cho "install_d3_not_activated" segments</li>
+        </ul></td>
+        <td><div class="outcome-box"><div class="ob-metric">Both branches Tier 1 live</div><div class="ob-desc">YES &amp; NO users đều nhận sequence. First A/B signal from week 5 cohort visible.</div></div></td>
+      </tr>
+
+      <tr>
+        <td><div class="wk">Week 7</div></td>
+        <td><span class="own own-b">Both</span></td>
+        <td><ul class="task-list">
+          <li><strong>Launch Tier 2 — cả 2 branches</strong>: Camp 3 (sub-category specific) + Camp 4 (swap) cho 5–19 adview users</li>
+          <li><strong>4-group segmentation design</strong>: define segments cho Week 2 engagement (Group A/B/C)</li>
+          <li><strong>Week 2 → engagement handoff</strong>: users xong D7 sequence tự động chuyển vào đúng group</li>
+          <li><strong>Senior</strong>: viết creative brief cho 4 user group messages (engagement phase)</li>
+          <li>Kill cycle #1: flag bất kỳ campaigns nào không deliver trong 30 ngày kể từ Wk 1</li>
+        </ul></td>
+        <td><div class="outcome-box"><div class="ctr-tag ctr-b">CTR ~5%</div><div class="ob-metric">Full D-day sequence live</div><div class="ob-desc">Cả 4 campaigns per branch running. First users exiting to Week 2 groups. Kill cycle #1 complete.</div></div></td>
+      </tr>
+
+      <!-- PHASE 2 -->
+      <tr class="phase-row ph2"><td colspan="4">PHASE 2 — Content &amp; Personalization · Wk 8–12 · Make every message earn its slot</td></tr>
+
+      <tr>
+        <td><div class="wk">Week 8</div></td>
+        <td><span class="own own-s">Senior</span></td>
+        <td><ul class="task-list">
+          <li><strong>Freshness protocol enforced</strong>: Braze tag rule live — cùng 1 user không nhận 2 camps cùng angle trong 7 ngày</li>
+          <li><strong>Personalization rollout</strong>: {{location}} + {{category}} Liquid tags live cho tất cả Priority A campaigns</li>
+          <li><strong>Creative refresh Priority B</strong>: brief + launch new creatives với personalization</li>
+          <li><strong>Engagement Group A</strong> (users &lt;20 adview): build item-level targeted message dựa trên listing đã xem</li>
+          <li><strong>Intern</strong>: audit angle tagging — confirm không có duplicate angles trong cùng tuần per user</li>
+        </ul></td>
+        <td><div class="outcome-box"><div class="ob-metric">Zero same-angle repeats</div><div class="ob-desc">Freshness enforced. Personalized messages live for all Priority A camps. Group A engagement started.</div></div></td>
+      </tr>
+
+      <tr>
+        <td><div class="wk">Week 9</div></td>
+        <td><span class="own own-b">Both</span></td>
+        <td><ul class="task-list">
+          <li><strong>Launch Group B messages</strong> (D7+, ≥20 adview, 0 lead): urgency + friction-reducing campaigns</li>
+          <li><strong>Launch Group C messages</strong> (D7+, ≥20 adview, ≥1 lead): new inventory + cross-sell campaigns</li>
+          <li><strong>Group D2 messages</strong> (D7, &lt;20 adview, ≥1 lead): cross-category discovery campaigns</li>
+          <li><strong>Segment validation</strong>: confirm 4-group segments không overlap, exclusion logic đúng</li>
+          <li><strong>Intern</strong>: build weekly CTR report per group (so sánh Group A/B/C/D)</li>
+        </ul></td>
+        <td><div class="outcome-box"><div class="ob-metric">4-group framework fully deployed</div><div class="ob-desc">All 4 user groups receiving distinct targeted messages. First group-level CTR data available.</div></div></td>
+      </tr>
+
+      <tr>
+        <td><div class="wk">Week 10</div></td>
+        <td><span class="own own-s">Senior</span></td>
+        <td><ul class="task-list">
+          <li><strong>ZNS scale-up</strong>: activate ZNS campaigns cho Group B &amp; C (high-intent users, higher trust channel)</li>
+          <li><strong>Inbox fallback</strong>: nếu push miss (user opt-out) → auto-trigger inbox message</li>
+          <li><strong>Content card strategy</strong>: Group C &amp; D in-app content cards (no opt-in required)</li>
+          <li><strong>Multi-channel sequence</strong>: Push D1 → nếu miss → Inbox D2 → Content card D3</li>
+          <li><strong>Senior</strong>: confirm với Đạt về ZNS template approval timeline</li>
+        </ul></td>
+        <td><div class="outcome-box"><div class="ob-metric">Multi-channel live</div><div class="ob-desc">ZNS active for high-intent groups. Inbox fallback running. Channel reach diversified beyond push-only.</div></div></td>
+      </tr>
+
+      <tr>
+        <td><div class="wk">Week 11</div></td>
+        <td><span class="own own-b">Both</span></td>
+        <td><ul class="task-list">
+          <li><strong>A/B Learning Cycle #1</strong>: analyze 6 tuần A/B data — winner angles per group, per branch, per tier</li>
+          <li><strong>Apply learnings</strong>: swap out losing messages, scale winning angles to full pool</li>
+          <li><strong>Learning log published</strong>: document insights, share với Chi Pu và team</li>
+          <li><strong>Kill cycle #2</strong>: tắt bất kỳ campaigns &lt;2% CTR sau 4 tuần live</li>
+          <li><strong>Intern</strong>: refresh D-day segments (segment refresh for new install cohorts weekly)</li>
+        </ul></td>
+        <td><div class="outcome-box"><div class="ctr-tag ctr-b">CTR ~6%</div><div class="ob-metric">First learnings published</div><div class="ob-desc">Learning log #1 done. Winning angles identified. Losing messages replaced. Kill cycle #2 clean.</div></div></td>
+      </tr>
+
+      <tr>
+        <td><div class="wk">Week 12</div></td>
+        <td><span class="own own-s">Senior</span></td>
+        <td><ul class="task-list">
+          <li><strong>Mid-point review</strong>: CTR vs. 8% target — đang ở đâu? Gap còn lại là gì?</li>
+          <li><strong>Scoring matrix refresh</strong>: re-score tất cả campaigns với latest performance data</li>
+          <li><strong>Experiment capacity check</strong>: 15% pool được reserve chưa? Có experiment nào đang chờ không?</li>
+          <li><strong>Launch 2–3 experiment campaigns</strong>: test new angles hoặc new triggers với 15% reserved pool</li>
+          <li><strong>Present to Chi Pu</strong>: mid-point report — what's working, what's behind, what to adjust</li>
+        </ul></td>
+        <td><div class="outcome-box"><div class="ob-metric">Mid-point calibration</div><div class="ob-desc">Clear view of gap to 8%. Experiment pipeline active. Adjusted plan for Wk 13–16 if needed.</div></div></td>
+      </tr>
+
+      <!-- PHASE 3 -->
+      <tr class="phase-row ph3"><td colspan="4">PHASE 3 — Optimize &amp; Scale · Wk 13–16 · Close the gap to 8%</td></tr>
+
+      <tr>
+        <td><div class="wk">Week 13</div></td>
+        <td><span class="own own-s">Senior</span></td>
+        <td><ul class="task-list">
+          <li><strong>Behavior trigger migration</strong>: top 30 campaigns chuyển từ scheduled → event-triggered</li>
+          <li>Key events: <code>adview_milestone</code>, <code>listing_view</code>, <code>search_performed</code>, <code>save_listing</code></li>
+          <li><strong>UCDP link</strong>: điền đầy đủ cho tất cả active campaigns — prerequisite cho L2/L3 tracking</li>
+          <li><strong>Intern</strong>: verify angle tags và freshness protocol sau 6 tuần — có drift không?</li>
+          <li>Creative brief cho new experiment angles (nếu experiment Wk 12 có winner)</li>
+        </ul></td>
+        <td><div class="outcome-box"><div class="ob-metric">First behavior triggers live</div><div class="ob-desc">30 campaigns now firing on user action, not schedule. UCDP filled — L2/L3 tracking can begin.</div></div></td>
+      </tr>
+
+      <tr>
+        <td><div class="wk">Week 14</div></td>
+        <td><span class="own own-b">Both</span></td>
+        <td><ul class="task-list">
+          <li><strong>L2 attribution live</strong>: per-campaign CR to ≥20 adview (activation metric) — first time measurable</li>
+          <li><strong>L3 attribution live</strong>: per-campaign CR to ≥1 lead — engagement metric per campaign</li>
+          <li><strong>Build attribution dashboard</strong>: sent → open → L2 → L3 per campaign, per week</li>
+          <li><strong>Kill campaigns with L2/L3 = 0</strong> even if CTR &gt;0 (click but no action = wrong message)</li>
+          <li><strong>Senior</strong>: identify top 5 campaigns by L3 CR — replicate segment + angle to similar users</li>
+        </ul></td>
+        <td><div class="outcome-box"><div class="ctr-tag ctr-g">CTR ~7%</div><div class="ob-metric">Full funnel visible</div><div class="ob-desc">First L2/L3 CR data per campaign. Can now optimize beyond CTR. Attribution dashboard live.</div></div></td>
+      </tr>
+
+      <tr>
+        <td><div class="wk">Week 15</div></td>
+        <td><span class="own own-b">Both</span></td>
+        <td><ul class="task-list">
+          <li><strong>A/B Learning Cycle #2</strong>: apply 10 tuần learnings — which angles, groups, channels, timing win?</li>
+          <li><strong>Scale winner angles</strong> to full pool; retire losing ones permanently</li>
+          <li><strong>Kill cycle #3</strong>: monthly kill sweep — any new ghosts from Wk 13–15?</li>
+          <li><strong>Intern</strong>: refresh all D-day segments for new install cohorts, verify exclusion logic intact</li>
+          <li><strong>Prep Q3 report</strong>: compile all data for week 16 review</li>
+        </ul></td>
+        <td><div class="outcome-box"><div class="ob-metric">Learning Cycle #2 done</div><div class="ob-desc">All winning angles scaled. System self-reinforcing. Q3 report data compiled.</div></div></td>
+      </tr>
+
+      <tr>
+        <td><div class="wk">Week 16</div></td>
+        <td><span class="own own-s">Senior</span></td>
+        <td><ul class="task-list">
+          <li><strong>Q3 Final review</strong>: did we hit 8%? Full funnel: sent → open → L2 → L3 per group</li>
+          <li><strong>Document all SOPs</strong>: kill cycle, scoring matrix, D-day sequence, angle rotation — handover-ready</li>
+          <li><strong>Present to Chi Pu</strong>: Q3 results, what worked, what missed, Q4 roadmap draft</li>
+          <li><strong>Automated kill cycle</strong>: setup auto-flag in OnFlow/UCDP for campaigns &gt;30 days no delivery</li>
+          <li><strong>Q4 backlog</strong>: new experiment ideas from 16-week learnings, scale ZNS, expand to web push</li>
+        </ul></td>
+        <td><div class="outcome-box"><div class="ctr-tag ctr-g">CTR 8% ✓</div><div class="ob-metric">Q3 target review</div><div class="ob-desc">8% direct open rate achieved. SOPs documented. Automated systems running. Q4 roadmap ready.</div></div></td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <!-- CTR TRAJECTORY -->
+  <div class="card" style="padding:16px 20px;margin-bottom:16px;">
+    <div style="font-family:var(--mn);font-size:10px;color:var(--mu);text-transform:uppercase;letter-spacing:.09em;margin-bottom:14px;">CTR trajectory — expected progression</div>
+    <div style="display:flex;align-items:center;gap:0;position:relative;">
+      <div style="position:absolute;top:18px;left:0;right:0;height:1px;background:var(--bdr);z-index:0"></div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;z-index:1">
+        <div style="font-family:var(--mn);font-size:10px;color:var(--mu)">Start</div>
+        <div style="width:10px;height:10px;border-radius:50%;background:var(--r);border:2px solid var(--r)"></div>
+        <div style="font-family:var(--mn);font-size:15px;font-weight:500;color:var(--r)">2.6%</div>
+        <div style="font-size:10px;color:var(--mu)">current mean</div>
+      </div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;z-index:1">
+        <div style="font-family:var(--mn);font-size:10px;color:var(--mu)">Wk 3</div>
+        <div style="width:10px;height:10px;border-radius:50%;background:var(--y);border:2px solid var(--y)"></div>
+        <div style="font-family:var(--mn);font-size:15px;font-weight:500;color:var(--y)">~4%</div>
+        <div style="font-size:10px;color:var(--mu)">re-elig + ghost kill</div>
+      </div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;z-index:1">
+        <div style="font-family:var(--mn);font-size:10px;color:var(--mu)">Wk 7</div>
+        <div style="width:10px;height:10px;border-radius:50%;background:var(--y);border:2px solid var(--y)"></div>
+        <div style="font-family:var(--mn);font-size:15px;font-weight:500;color:var(--y)">~5%</div>
+        <div style="font-size:10px;color:var(--mu)">full D-day sequence</div>
+      </div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;z-index:1">
+        <div style="font-family:var(--mn);font-size:10px;color:var(--mu)">Wk 11</div>
+        <div style="width:10px;height:10px;border-radius:50%;background:var(--b);border:2px solid var(--b)"></div>
+        <div style="font-family:var(--mn);font-size:15px;font-weight:500;color:var(--b)">~6%</div>
+        <div style="font-size:10px;color:var(--mu)">4-group + learnings</div>
+      </div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;z-index:1">
+        <div style="font-family:var(--mn);font-size:10px;color:var(--mu)">Wk 14</div>
+        <div style="width:10px;height:10px;border-radius:50%;background:var(--b);border:2px solid var(--b)"></div>
+        <div style="font-family:var(--mn);font-size:15px;font-weight:500;color:var(--b)">~7%</div>
+        <div style="font-size:10px;color:var(--mu)">behavior triggers + L3</div>
+      </div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;z-index:1">
+        <div style="font-family:var(--mn);font-size:10px;color:var(--mu)">Wk 16</div>
+        <div style="width:10px;height:10px;border-radius:50%;background:var(--g);border:2px solid var(--g)"></div>
+        <div style="font-family:var(--mn);font-size:15px;font-weight:600;color:var(--g)">8% ✓</div>
+        <div style="font-size:10px;color:var(--mu)">Q3 target</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="g2">
+    <div class="al r" style="margin-bottom:0"><div class="al-t">Dependencies cần xác nhận sớm (Wk 1)</div><p><strong>Canvas availability</strong>: nếu không có Canvas → dùng UCDP segments (Intern phải refresh daily). <strong>ZNS template approval</strong>: submit week 4 để có ZNS live vào Wk 10. <strong>Braze angle tag custom attribute</strong>: cần confirm với Đạt trước Wk 8.</p></div>
+    <div class="al y" style="margin-bottom:0"><div class="al-t">Risk &amp; mitigation</div><p><strong>Quick-win tạo cảm giác "xong"</strong>: Senior phải lock Phase 1 deliverables trong weekly review. <strong>Intern capacity</strong>: daily segment refresh = 1–2h/day, phải estimate realistically. <strong>CTR plateau Wk 11–12</strong>: nếu không đạt 6%, pull forward behavior trigger migration sang Wk 10.</p></div>
+  </div>
+</div>
+
+</div><!-- end panel roadmap -->
+
+<!-- TAB 4: REWARDS ENGINE -->
+<div id="pw" class="panel">
+
+<style>
+/* REWARDS TAB SPECIFIC */
+.rw-hero{background:var(--tx);color:#fff;border-radius:8px;padding:22px 24px;margin-bottom:20px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.rw-hero-stat .rh-label{font-family:var(--mn);font-size:10px;color:rgba(255,255,255,.35);letter-spacing:.09em;text-transform:uppercase;margin-bottom:6px}
+.rw-hero-stat .rh-val{font-family:var(--mn);font-size:32px;font-weight:500;color:#F5A623;line-height:1;margin-bottom:3px}
+.rw-hero-stat .rh-sub{font-size:11px;color:rgba(255,255,255,.5)}
+.rw-insight{font-size:13px;line-height:1.65;font-weight:300;color:rgba(255,255,255,.85);grid-column:span 2;padding-left:20px;border-left:1px solid rgba(255,255,255,.1);align-self:center}
+.rw-insight strong{color:#F5A623;font-weight:600}
+
+.trigger-table{width:100%;border-collapse:collapse;font-size:12px}
+.trigger-table th{background:var(--sur2);padding:9px 13px;text-align:left;font-family:var(--mn);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--mu);border-bottom:1px solid var(--bdr)}
+.trigger-table td{padding:9px 13px;border-bottom:1px solid rgba(226,224,216,.4);vertical-align:top}
+.trigger-table tr:last-child td{border-bottom:none}
+.trigger-table tr:hover td{background:var(--bg)}
+
+.screen-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
+.screen-card{background:var(--sur);border:1px solid var(--bdr);border-radius:7px;overflow:hidden}
+.screen-card-head{padding:10px 12px;border-bottom:1px solid var(--bdr)}
+.screen-card-location{font-family:var(--mn);font-size:10px;color:var(--mu);letter-spacing:.07em;text-transform:uppercase;margin-bottom:3px}
+.screen-card-title{font-weight:700;font-size:12px}
+.screen-card-body{padding:10px 12px;font-size:11px;color:var(--mu);line-height:1.55}
+.screen-card-trigger{display:inline-block;font-family:var(--mn);font-size:10px;padding:2px 7px;border-radius:3px;margin-top:6px;font-weight:500}
+.sc-t1{background:#FFF3E0;color:#8A5500}.sc-t2{background:var(--gl);color:var(--g)}.sc-t3{background:var(--bl);color:var(--b)}.sc-t4{background:var(--pl);color:var(--p)}.sc-t5{background:var(--rl);color:var(--r)}
+
+.quest-table{width:100%;border-collapse:collapse;font-size:12px}
+.quest-table th{background:var(--sur2);padding:9px 13px;text-align:left;font-family:var(--mn);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--mu);border-bottom:1px solid var(--bdr)}
+.quest-table td{padding:9px 13px;border-bottom:1px solid rgba(226,224,216,.4);vertical-align:middle}
+.quest-table tr:last-child td{border-bottom:none}
+.qstatus{display:inline-block;font-family:var(--mn);font-size:10px;padding:2px 7px;border-radius:3px;font-weight:500;white-space:nowrap}
+.qs-active{background:var(--gl);color:var(--g)}.qs-design{background:var(--yl);color:var(--y)}.qs-planned{background:var(--bl);color:var(--b)}
+
+.voucher-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
+.voucher-card{background:var(--sur);border:1px solid var(--bdr);border-radius:7px;padding:12px}
+.vc-cat{font-family:var(--mn);font-size:10px;color:var(--mu);letter-spacing:.07em;text-transform:uppercase;margin-bottom:6px}
+.vc-coef{font-family:var(--mn);font-size:22px;font-weight:500;margin-bottom:3px}
+.vc-coef.f{color:#EF4444}.vc-coef.a{color:#F5A623}.vc-coef.b{color:#3B82F6}.vc-coef.c{color:var(--mu)}
+.vc-example{font-size:11px;color:var(--mu);line-height:1.5}
+.vc-pilot{font-size:10px;font-family:var(--mn);margin-top:5px}
+.vc-pilot.w{color:var(--g)}.vc-pilot.l{color:var(--r)}
+
+.req-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.req-item{background:var(--sur);border:1px solid var(--bdr);border-radius:6px;padding:12px 14px}
+.req-num{font-family:var(--mn);font-size:10px;color:var(--mu);margin-bottom:4px}
+.req-title{font-weight:600;font-size:12px;margin-bottom:3px}
+.req-desc{font-size:11px;color:var(--mu)}
+.req-badge{display:inline-block;font-family:var(--mn);font-size:9px;padding:1px 6px;border-radius:3px;margin-top:5px;font-weight:500}
+.rb-high{background:var(--rl);color:var(--r)}.rb-med{background:var(--yl);color:var(--y)}.rb-low{background:var(--sur2);color:var(--mu)}
+
+.rr-table{width:100%;border-collapse:collapse;font-size:12px}
+.rr-table th{background:var(--sur2);padding:9px 13px;text-align:left;font-family:var(--mn);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--mu);border-bottom:1px solid var(--bdr)}
+.rr-table td{padding:9px 13px;border-bottom:1px solid rgba(226,224,216,.4);vertical-align:top}
+.rr-table tr:last-child td{border-bottom:none}
+
+.lifecycle-map{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;background:var(--bdr);border:1px solid var(--bdr);border-radius:8px;overflow:hidden;margin-bottom:20px}
+.lm-item{background:var(--sur);padding:16px 14px}
+.lm-phase{font-family:var(--mn);font-size:10px;font-weight:500;letter-spacing:.09em;text-transform:uppercase;margin-bottom:8px}
+.lm-item:nth-child(1) .lm-phase{color:var(--b)}
+.lm-item:nth-child(2) .lm-phase{color:#8A5500}
+.lm-item:nth-child(3) .lm-phase{color:var(--p)}
+.lm-title{font-weight:700;font-size:13px;margin-bottom:6px}
+.lm-quest{font-size:12px;color:var(--mu);display:flex;gap:6px;padding:2px 0}
+.lm-quest::before{content:'→';color:var(--bdr);flex-shrink:0}
+
+.formula-box{background:#FFF3E0;border:0.5px solid #F5A623;border-radius:8px;padding:18px 20px;margin-bottom:16px}
+.formula-title{font-family:var(--mn);font-size:11px;color:#8A5500;letter-spacing:.09em;text-transform:uppercase;margin-bottom:8px}
+.formula-eq{font-family:var(--mn);font-size:18px;font-weight:500;color:#412402;margin-bottom:8px}
+.formula-note{font-size:12px;color:#633806;line-height:1.6}
+</style>
+
+<div class="sec">
+  <div class="sh"><span class="sl">Rewards as Engine — Rationale</span><div class="sline"></div></div>
+
+  <div class="rw-hero">
+    <div class="rw-hero-stat">
+      <div class="rh-label">Q1 Pilot — Total redemptions</div>
+      <div class="rh-val">869</div>
+      <div class="rh-sub">across 4 partners · Viva Star, bTaskee, Vé Xe Rẻ, Parkway</div>
+    </div>
+    <div class="rw-insight" style="grid-column:span 2">
+      <strong>Core insight từ Loyalty Plan:</strong> Rewards hiệu quả nhất không thưởng cho hành động người dùng <em>đã</em> làm — mà <strong>tạo ra hành động mới mà người dùng chưa có ý định</strong>. Tạo cảm giác họ đang chơi game: thực hiện nhiệm vụ → trúng quà. Chợ Tốt hiện bị dùng theo mô hình "visit khi có nhu cầu" — Rewards + Quest là cơ chế để chuyển sang habit-driven daily open.
+    </div>
+  </div>
+
+  <div class="lifecycle-map">
+    <div class="lm-item">
+      <div class="lm-phase">Acquisition · D0</div>
+      <div class="lm-title">New user onboard</div>
+      <div class="lm-quest">New signup quest → welcome voucher</div>
+      <div class="lm-quest">Onboarding complete → bonus points</div>
+      <div class="lm-quest">Web-to-app convert → F&B voucher (reward for switching)</div>
+    </div>
+    <div class="lm-item">
+      <div class="lm-phase">Activation · D1–D7</div>
+      <div class="lm-title">Reach 20 adview + lead signal</div>
+      <div class="lm-quest">Xem 20 adview = 350 điểm Tốt (current)</div>
+      <div class="lm-quest">Xem 5 adview milestone = 300 điểm (current)</div>
+      <div class="lm-quest">Make first lead = reward TBD</div>
+      <div class="lm-quest">In-listing nudge: "Xem thêm 4 ad để nhận voucher X"</div>
+    </div>
+    <div class="lm-item">
+      <div class="lm-phase">Engagement · D7+</div>
+      <div class="lm-title">Daily habit + repeat lead</div>
+      <div class="lm-quest">Daily streak: view / save / chat = bonus</div>
+      <div class="lm-quest">Lead streak: 3 leads in a week = premium voucher</div>
+      <div class="lm-quest">Profile completion = 50 pts each action</div>
+      <div class="lm-quest">Voucher expiry push → urgency to return</div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- VISIBILITY SECTION -->
+<div class="sec">
+  <div class="sh"><span class="sl">1 · Visibility — Event Triggers + Screen Placements</span><div class="sline"></div></div>
+  <div class="al b" style="margin-bottom:18px;"><div class="al-t">Objective</div><p>Đảm bảo user nhìn thấy reward/quest đúng lúc, đúng màn hình khi họ đang có intent cao nhất. Reward buried in Account page = wasted reward.</p></div>
+
+  <div class="sh"><span class="sl" style="font-size:10px">Event Triggers — khi nào show reward</span><div class="sline"></div></div>
+  <div class="card" style="padding:0;overflow:hidden;margin-bottom:16px;">
+    <table class="trigger-table">
+      <thead><tr><th>Event</th><th>Trigger condition</th><th>What to show</th><th>REQ</th><th>Priority</th></tr></thead>
+      <tbody>
+        <tr><td><strong>First app open</strong></td><td>install_date = today, session_count = 1</td><td>Welcome banner: "Hoàn thành nhiệm vụ → nhận ngay voucher F&B"</td><td style="font-family:var(--mn);font-size:11px;color:var(--b)">REQ 10</td><td><span class="pill r">HIGH</span></td></tr>
+        <tr><td><strong>Adview milestone</strong></td><td>adview_count ∈ {5, 10, 15, 19}</td><td>In-listing tooltip: "Xem thêm X ad để nhận voucher KFC 30k"</td><td style="font-family:var(--mn);font-size:11px;color:var(--b)">REQ 11</td><td><span class="pill r">HIGH</span></td></tr>
+        <tr><td><strong>Quest completed</strong></td><td>quest_status → COMPLETE</td><td>Congratulations screen + push notification within 30–60s</td><td style="font-family:var(--mn);font-size:11px;color:var(--b)">REQ 8, 9</td><td><span class="pill r">HIGH</span></td></tr>
+        <tr><td><strong>Lead signal detected</strong></td><td>listing_saved OR chat_initiated</td><td>In-app nudge: "Bạn gần hoàn thành! Make lead để nhận voucher X"</td><td style="font-family:var(--mn);font-size:11px;color:var(--b)">REQ 11</td><td><span class="pill r">HIGH</span></td></tr>
+        <tr><td><strong>Voucher expiry –48h</strong></td><td>voucher.expiry - now &lt; 48h</td><td>Push: "Voucher KFC sắp hết hạn — dùng ngay trước 23:59 hôm nay!"</td><td style="font-family:var(--mn);font-size:11px;color:var(--b)">REQ 8</td><td><span class="pill y">MED</span></td></tr>
+        <tr><td><strong>Streak at risk</strong></td><td>no_activity &gt; 20h, active streak &gt; 2</td><td>Push: "Đừng phá streak 3 ngày của bạn! Mở app xem 1 tin ngay"</td><td style="font-family:var(--mn);font-size:11px;color:var(--b)">REQ 5, 8</td><td><span class="pill y">MED</span></td></tr>
+        <tr><td><strong>Daily login (retention)</strong></td><td>first_session of day, streak_count &gt; 0</td><td>Banner: "Ngày X của streak! Thêm 1 ngày nữa để nhận bonus"</td><td style="font-family:var(--mn);font-size:11px;color:var(--b)">REQ 5</td><td><span class="pill y">MED</span></td></tr>
+        <tr><td><strong>Unclaimed reward</strong></td><td>unclaimed_voucher_count &gt; 0</td><td>Badge trên Account icon: "3 quà chưa nhận 🎁"</td><td style="font-family:var(--mn);font-size:11px;color:var(--b)">REQ 10</td><td><span class="pill y">MED</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sh"><span class="sl" style="font-size:10px">Screen Placements — hiển thị ở đâu</span><div class="sline"></div></div>
+  <div class="screen-grid">
+    <div class="screen-card">
+      <div class="screen-card-head"><div class="screen-card-location">Homepage</div><div class="screen-card-title">Task of the Day widget</div></div>
+      <div class="screen-card-body">Widget cố định trên homepage cho targeted segments. Show quest progress + reward value. Dynamic theo user stage (D7 vs D7+).<div class="screen-card-trigger sc-t1">REQ 10 · HIGH</div></div>
+    </div>
+    <div class="screen-card">
+      <div class="screen-card-head"><div class="screen-card-location">Account icon</div><div class="screen-card-title">Dynamic badge "N quà chưa nhận"</div></div>
+      <div class="screen-card-body">Badge đỏ trên Account icon tạo pull psychology — user thấy số thì tò mò click. Disappears khi đã claim.<div class="screen-card-trigger sc-t2">REQ 10 · MED</div></div>
+    </div>
+    <div class="screen-card">
+      <div class="screen-card-head"><div class="screen-card-location">Listing detail page</div><div class="screen-card-title">Contextual tooltip</div></div>
+      <div class="screen-card-body">"Xem thêm 4 ad trong Motors để unlock voucher F&B" — personalized theo category user đang browse.<div class="screen-card-trigger sc-t3">REQ 11 · MED</div></div>
+    </div>
+    <div class="screen-card">
+      <div class="screen-card-head"><div class="screen-card-location">Search results</div><div class="screen-card-title">Quest progress mini-banner</div></div>
+      <div class="screen-card-body">Mini-banner dưới search bar: "Tiến độ: 12/20 adview — xem thêm 8 tin để nhận thưởng!" Disappears after activation.<div class="screen-card-trigger sc-t3">REQ 11 · MED</div></div>
+    </div>
+    <div class="screen-card">
+      <div class="screen-card-head"><div class="screen-card-location">Post-quest screen</div><div class="screen-card-title">Congratulations + deeplink</div></div>
+      <div class="screen-card-body">Màn hình chúc mừng sau khi complete quest. Nếu physical reward: form collect SĐT/địa chỉ ngay tại đây. Deeplink đến đúng voucher.<div class="screen-card-trigger sc-t4">REQ 8, 9 · HIGH</div></div>
+    </div>
+    <div class="screen-card">
+      <div class="screen-card-head"><div class="screen-card-location">Push notification</div><div class="screen-card-title">Quest complete + expiry alerts</div></div>
+      <div class="screen-card-body">Trigger ngay trong 30–60s khi quest completed. Notification chứa: tên reward, giá trị, CTA deeplink đến wallet.<div class="screen-card-trigger sc-t5">REQ 8 · HIGH</div></div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- OPERATION SECTION -->
+<div class="sec">
+  <div class="sh"><span class="sl">2 · Operation — Quest List + Incentive/Voucher + Distribution Logic</span><div class="sline"></div></div>
+  <div class="al b" style="margin-bottom:18px;"><div class="al-t">Objective</div><p>Đảm bảo từng quest có đủ: target segment, reward bundle, timing window, và kill criteria. MKT phải tự operate mà không cần eng support sau khi Quest Engine live (REQ 1).</p></div>
+
+  <div class="sh"><span class="sl" style="font-size:10px">Quest Catalog — current + planned</span><div class="sline"></div></div>
+  <div class="card" style="padding:0;overflow:hidden;margin-bottom:16px;">
+    <table class="quest-table">
+      <thead><tr><th>Quest</th><th>Metric</th><th>Points</th><th>Target segment</th><th>Campaign</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td><strong>New signup</strong></td><td style="font-size:11px;color:var(--mu)">Acquisition</td><td style="font-family:var(--mn)">??</td><td style="font-size:11px;color:var(--mu)">All new installs</td><td style="font-size:11px;color:var(--mu)">-</td><td><span class="qstatus qs-design">Design needed</span></td></tr>
+        <tr><td><strong>Xem 20 adview</strong></td><td style="font-size:11px;color:var(--mu)">L2 Activation</td><td style="font-family:var(--mn);font-weight:500;color:var(--g)">350 pts</td><td style="font-size:11px;color:var(--mu)">New app users D7</td><td style="font-size:11px;color:var(--mu)">Growth</td><td><span class="qstatus qs-active">Active</span></td></tr>
+        <tr><td><strong>Xem 5 adview</strong></td><td style="font-size:11px;color:var(--mu)">Activation</td><td style="font-family:var(--mn);font-weight:500;color:var(--g)">300 pts</td><td style="font-size:11px;color:var(--mu)">Job vertical users</td><td style="font-size:11px;color:var(--mu)">Job Camp Tết</td><td><span class="qstatus qs-active">Active</span></td></tr>
+        <tr><td><strong>Make lead</strong></td><td style="font-size:11px;color:var(--mu)">L3 Engagement</td><td style="font-family:var(--mn)">??</td><td style="font-size:11px;color:var(--mu)">D7+ users, 20+ adview, 0 lead</td><td style="font-size:11px;color:var(--mu)">-</td><td><span class="qstatus qs-design">Design needed</span></td></tr>
+        <tr><td><strong>Update phone</strong></td><td style="font-size:11px;color:var(--mu)">Profile data</td><td style="font-family:var(--mn)">??</td><td style="font-size:11px;color:var(--mu)">Users without phone verified</td><td style="font-size:11px;color:var(--mu)">-</td><td><span class="qstatus qs-design">Design needed</span></td></tr>
+        <tr><td><strong>Profile: tên/giới tính/ngày sinh</strong></td><td style="font-size:11px;color:var(--mu)">Profile</td><td style="font-family:var(--mn);font-weight:500">50 pts</td><td style="font-size:11px;color:var(--mu)">All users</td><td style="font-size:11px;color:var(--mu)">-</td><td><span class="qstatus qs-active">Active</span></td></tr>
+        <tr><td><strong>Profile: xác thực email</strong></td><td style="font-size:11px;color:var(--mu)">Profile</td><td style="font-family:var(--mn);font-weight:500">50 pts</td><td style="font-size:11px;color:var(--mu)">All users</td><td style="font-size:11px;color:var(--mu)">-</td><td><span class="qstatus qs-active">Active</span></td></tr>
+        <tr><td><strong>Profile: cập nhật ảnh đại diện</strong></td><td style="font-size:11px;color:var(--mu)">Profile</td><td style="font-family:var(--mn);font-weight:500">50 pts</td><td style="font-size:11px;color:var(--mu)">All users</td><td style="font-size:11px;color:var(--mu)">-</td><td><span class="qstatus qs-active">Active</span></td></tr>
+        <tr><td><strong>D7 adview streak (daily)</strong></td><td style="font-size:11px;color:var(--mu)">Retention</td><td style="font-family:var(--mn)">TBD</td><td style="font-size:11px;color:var(--mu)">D7 new users, 5–19 adview</td><td style="font-size:11px;color:var(--mu)">-</td><td><span class="qstatus qs-planned">Planned</span></td></tr>
+        <tr><td><strong>Weekly lead streak</strong></td><td style="font-size:11px;color:var(--mu)">Engagement</td><td style="font-family:var(--mn)">TBD</td><td style="font-size:11px;color:var(--mu)">D7+ users, Grp C &amp; D</td><td style="font-size:11px;color:var(--mu)">-</td><td><span class="qstatus qs-planned">Planned</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sh"><span class="sl" style="font-size:10px">Voucher Scoring + Partner Priority</span><div class="sline"></div></div>
+
+  <div class="formula-box">
+    <div class="formula-title">Voucher Scoring Formula</div>
+    <div class="formula-eq">Điểm Tốt = Giá trị voucher (k VNĐ) × Hệ số Hot</div>
+    <div class="formula-note">Hệ số Hot phản ánh 3 yếu tố: <strong>(1) Frequency of need</strong> — user cần category này bao nhiêu lần/tháng. <strong>(2) Redemption friction</strong> — dùng voucher khó hay dễ. <strong>(3) Brand desirability</strong> — user có hào hứng với brand này không. Khoảng cách ×1 đến ×12 từ pilot data thực — không phải lý thuyết.</div>
+  </div>
+
+  <div class="voucher-grid">
+    <div class="voucher-card">
+      <div class="vc-cat">F&B / Drink</div>
+      <div class="vc-coef f">×10</div>
+      <div class="vc-example">Viva 30k → 300 điểm. KFC 30k → 300 điểm. Nhu cầu 20–30×/tháng. Friction thấp nhất.</div>
+      <div class="vc-pilot w">Pilot: 66.9% redemption ✓</div>
+    </div>
+    <div class="voucher-card">
+      <div class="vc-cat">Bus Ticket</div>
+      <div class="vc-coef a">×12</div>
+      <div class="vc-example">Vé Xe Rẻ 25k → 300 điểm. Utilitarian + urgent — user bao giờ cũng cần.</div>
+      <div class="vc-pilot w">Pilot: 13.2% → OK duy trì</div>
+    </div>
+    <div class="voucher-card">
+      <div class="vc-cat">Cleaning</div>
+      <div class="vc-coef b">×1</div>
+      <div class="vc-example">bTaskee 50k off → 50 điểm. Nhu cầu 1–2×/tháng. Friction cao: cần đặt lịch, cam kết thời gian.</div>
+      <div class="vc-pilot w">Pilot: 16.0% → duy trì</div>
+    </div>
+    <div class="voucher-card">
+      <div class="vc-cat">Dental</div>
+      <div class="vc-coef c">×1</div>
+      <div class="vc-example">Nhu cầu 1–2×/năm. Friction rất cao. Brand desirability thấp.</div>
+      <div class="vc-pilot l">Pilot: 3.9% → xem xét drop</div>
+    </div>
+  </div>
+
+  <div class="sh"><span class="sl" style="font-size:10px">Distribution Logic</span><div class="sline"></div></div>
+  <div class="g3" style="margin-bottom:16px;">
+    <div class="card lb" style="margin-bottom:0;padding:16px;">
+      <div class="ct" style="font-size:12px;">Auto-deliver on action</div>
+      <div style="font-size:12px;color:var(--mu);margin-top:5px;line-height:1.6;">Voucher delivered to user wallet <strong>within 1 day</strong> of qualifying action. Each code → exactly 1 user (no duplicate). Trigger: quest_status = COMPLETE. <span style="font-family:var(--mn);font-size:10px;color:var(--b)">REQ 3, 8</span></div>
+    </div>
+    <div class="card lg" style="margin-bottom:0;padding:16px;">
+      <div class="ct" style="font-size:12px;">Segment-targeted (UCDP)</div>
+      <div style="font-size:12px;color:var(--mu);margin-top:5px;line-height:1.6;">Assign quest chỉ cho users matching UCDP segment. E.g., users từ Campaign A (Growth) thấy Quest X, users từ Campaign B (Job) thấy Quest Y. <span style="font-family:var(--mn);font-size:10px;color:var(--g)">REQ 2</span></div>
+    </div>
+    <div class="card lp" style="margin-bottom:0;padding:16px;">
+      <div class="ct" style="font-size:12px;">CSV upload / 1-to-1</div>
+      <div style="font-size:12px;color:var(--mu);margin-top:5px;line-height:1.6;">Upload danh sách chotot_id thủ công cho adhoc campaigns. All users in list receive voucher <strong>within 10 min</strong>. 1-to-1 delivery to single chotot_id. <span style="font-family:var(--mn);font-size:10px;color:var(--p)">REQ 3</span></div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- BRD REQ PRIORITIES -->
+<div class="sec">
+  <div class="sh"><span class="sl">BRD Requirements — Priority Queue for Engineering</span><div class="sline"></div></div>
+  <div class="al r" style="margin-bottom:16px;"><div class="al-t">Current state: MKT không tự operate được</div><p>Every campaign requires 4+ weeks custom eng dev. Quest shows to ALL users (no targeting). Rewards loop is manual and broken. No streak mechanic. This is blocking ROI and speed.</p></div>
+
+  <div class="req-grid">
+    <div class="req-item" style="border-left:3px solid var(--r)">
+      <div class="req-num">REQ 1</div><div class="req-title">Quest Configuration Framework</div>
+      <div class="req-desc">Self-serve config UI — MKT tự tạo quest type mới không cần eng. Template: event-based, condition-based, chain-based, audience-based.</div>
+      <div class="req-badge rb-high">HIGH</div>
+    </div>
+    <div class="req-item" style="border-left:3px solid var(--r)">
+      <div class="req-num">REQ 2</div><div class="req-title">Quest Assignment by Segment</div>
+      <div class="req-desc">Assign quest từ UCDP segment hoặc CSV upload. Chỉ target users thấy quest dành cho họ — không broadcast cho tất cả.</div>
+      <div class="req-badge rb-high">HIGH</div>
+    </div>
+    <div class="req-item" style="border-left:3px solid var(--r)">
+      <div class="req-num">REQ 3</div><div class="req-title">Voucher Distribution to Specific Users</div>
+      <div class="req-desc">1-to-1 voucher delivery đến chotot_id cụ thể. Auto-deliver khi user complete action. CSV upload &lt;10 min. Close the loop: action → reward.</div>
+      <div class="req-badge rb-high">HIGH</div>
+    </div>
+    <div class="req-item" style="border-left:3px solid var(--r)">
+      <div class="req-num">REQ 8</div><div class="req-title">Trigger &amp; Notification System</div>
+      <div class="req-desc">Auto push notification trong 30–60s khi quest complete. Notification chứa reward name, value, deeplink CTA đến wallet.</div>
+      <div class="req-badge rb-high">HIGH</div>
+    </div>
+    <div class="req-item" style="border-left:3px solid var(--y)">
+      <div class="req-num">REQ 5</div><div class="req-title">Quest Chains &amp; Streaks</div>
+      <div class="req-desc">Streak-based quests (daily adview, weekly lead). Cumulative milestone quests. Streak state shown to user ("Day 2 of 5"). Habit formation engine.</div>
+      <div class="req-badge rb-med">MEDIUM</div>
+    </div>
+    <div class="req-item" style="border-left:3px solid var(--y)">
+      <div class="req-num">REQ 10</div><div class="req-title">High-Visibility Entry Points</div>
+      <div class="req-desc">Dynamic badge trên Account icon, "Task of the Day" widget trên Homepage. Pull users vào reward ecosystem mà không cần push notification.</div>
+      <div class="req-badge rb-med">MEDIUM</div>
+    </div>
+    <div class="req-item" style="border-left:3px solid var(--y)">
+      <div class="req-num">REQ 11</div><div class="req-title">Contextual In-app Placement</div>
+      <div class="req-desc">Tooltip/mini-banner trên Listing và Search pages: "Xem thêm 4 ad để nhận voucher X". Personalized theo real-time category browsing.</div>
+      <div class="req-badge rb-med">MEDIUM</div>
+    </div>
+    <div class="req-item" style="border-left:3px solid var(--y)">
+      <div class="req-num">REQ 9</div><div class="req-title">Post-Quest Action Flow</div>
+      <div class="req-desc">Form thu thập SĐT/địa chỉ ngay trong màn hình chúc mừng (physical reward). Deeplink đến đúng campaign voucher page sau khi complete.</div>
+      <div class="req-badge rb-med">MEDIUM</div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- REWARDS ROADMAP ADDITIONS -->
+<div class="sec">
+  <div class="sh"><span class="sl">Rewards Additions to 16-Week Roadmap</span><div class="sline"></div></div>
+  <div class="al y" style="margin-bottom:16px;"><div class="al-t">Dependency: Quest Engine phải được eng deliver trước khi MKT có thể self-operate</div><p>Tuần 1–4 là MKT-side prep (quest design, voucher catalog, partner brief). Tuần 5+ là khi eng delivery bắt đầu cho REQ 1–3. Rewards integration vào CRM campaigns (OnFlow) bắt đầu từ tuần 7 khi first quests live.</p></div>
+
+  <div class="card" style="padding:0;overflow:hidden;margin-bottom:16px;">
+    <table class="rr-table">
+      <thead><tr><th style="width:80px">Week</th><th>Rewards Actions (Visibility)</th><th>Rewards Actions (Operation)</th><th style="width:70px">Owner</th></tr></thead>
+      <tbody>
+        <tr style="background:#FFF8F0">
+          <td style="font-family:var(--mn);font-weight:500;color:#8A5500">Wk 1–2</td>
+          <td style="font-size:12px;color:var(--mu)">Map event triggers per screen (spreadsheet). Align với product team về feasibility REQ 10/11.</td>
+          <td style="font-size:12px;color:var(--mu)">Finalize quest catalog (all 10 quests). Define points per quest. Drop Dental from voucher catalog.</td>
+          <td><span class="own own-s">Senior</span></td>
+        </tr>
+        <tr>
+          <td style="font-family:var(--mn);font-weight:500">Wk 3–4</td>
+          <td style="font-size:12px;color:var(--mu)">Brief product team về REQ 8 notification spec. Design congratulations screen flow.</td>
+          <td style="font-size:12px;color:var(--mu)">Partner brief cho Q3: F&B priority. Target: KFC, Highlands, Rau Má Mix, Mixue, Phúc Long. Finalize điểm Tốt per partner.</td>
+          <td><span class="own own-s">Senior</span></td>
+        </tr>
+        <tr style="background:#F0F7FF">
+          <td style="font-family:var(--mn);font-weight:500;color:var(--b)">Wk 5–6</td>
+          <td style="font-size:12px;color:var(--mu)">REQ 10 entry point design: Account badge + Homepage widget mockup. Submit to product backlog.</td>
+          <td style="font-size:12px;color:var(--mu)">Configure first 3 quests trong Quest Engine (khi REQ 1 delivered): Xem 20 adview (350pts) + Make lead (??) + Profile completion.</td>
+          <td><span class="own own-b">Both</span></td>
+        </tr>
+        <tr>
+          <td style="font-family:var(--mn);font-weight:500">Wk 7–8</td>
+          <td style="font-size:12px;color:var(--mu)">Launch REQ 11 contextual tooltip trên Listing page cho adview milestone (khi eng delivers).</td>
+          <td style="font-size:12px;color:var(--mu)">Assign activation quest (20 adview) tới D7 new user segment via UCDP (REQ 2). First targeted quest live.</td>
+          <td><span class="own own-b">Both</span></td>
+        </tr>
+        <tr style="background:#F0FFF5">
+          <td style="font-family:var(--mn);font-weight:500;color:var(--g)">Wk 9–10</td>
+          <td style="font-size:12px;color:var(--mu)">REQ 8 live: push notification trigger trong 30–60s sau quest complete. Test 100 users trước khi scale.</td>
+          <td style="font-size:12px;color:var(--mu)">Lead quest assigned tới Grp C segment (20+ adview, 0 lead). Voucher: F&B bundle (KFC + Rau Má Mix). Multi-reward (REQ 4).</td>
+          <td><span class="own own-b">Both</span></td>
+        </tr>
+        <tr>
+          <td style="font-family:var(--mn);font-weight:500">Wk 11–12</td>
+          <td style="font-size:12px;color:var(--mu)">REQ 10 Account badge live. Homepage "Task of the Day" widget for D7 users. Measure click-through.</td>
+          <td style="font-size:12px;color:var(--mu)">First Burn rate review: &lt;40% → voucher catalog unattractive, cần thêm F&B partners. Monitor: Activation rate (target 10%), Redemption rate (target 20–30%).</td>
+          <td><span class="own own-s">Senior</span></td>
+        </tr>
+        <tr style="background:#F5F0FF">
+          <td style="font-family:var(--mn);font-weight:500;color:var(--p)">Wk 13–16</td>
+          <td style="font-size:12px;color:var(--mu)">Streak state display live: "Day 2 of 5" progress shown to user. Expiry push reminder (2h post-redeem + 6h before expiry).</td>
+          <td style="font-size:12px;color:var(--mu)">REQ 5: Streak quests live — D7 adview streak + weekly lead streak. REQ 9: Post-quest form for physical gifts. Partner redemption rate tracking với KFC/Highlands.</td>
+          <td><span class="own own-b">Both</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="g2">
+    <div class="al g" style="margin-bottom:0"><div class="al-t">Success metrics (from Loyalty Plan)</div><p><strong>Activation Rate:</strong> user opened voucher detail ÷ notification sent × 100 → Target 10%.<br><strong>Voucher Redemption Rate:</strong> user redeemed ÷ user opened voucher × 100 → Target 20–30%.<br><strong>Burn Rate:</strong> điểm đã đổi ÷ điểm đã phát × 100 → Healthy range: 40–80%. &lt;40% = dead points problem.</p></div>
+    <div class="al r" style="margin-bottom:0"><div class="al-t">Open questions cần giải quyết</div><p><strong>Điểm Tốt cho Make lead:</strong> chưa có benchmark — đề xuất 200–300 điểm (thấp hơn 20-adview quest để tránh cannibalizing activation path). <strong>Partner redemption tracking:</strong> nếu partner không có tracking system → solution cần define. <strong>Activation Rate thấp (&lt;10%):</strong> → solution chưa define trong Loyalty Plan.</p></div>
+  </div>
+</div>
+
+</div><!-- end panel rewards -->
+
+<script>
+function st(id, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.tabbtn').forEach(b => b.classList.remove('on'));
+  document.getElementById('p'+id).classList.add('on');
+  btn.classList.add('on');
+}
+function ta(el) { el.classList.toggle('open'); }
+</script>
+</body>
+</html>
